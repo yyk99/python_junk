@@ -32,6 +32,25 @@ PyInit_emb( void )
     return PyModule_Create( &EmbModule );
 }
 
+void
+dump_py_list( PyObject *list )
+{
+    Py_ssize_t s = PyList_Size( list );
+    if ( s > 0 ) {
+        for ( Py_ssize_t i = 0; i < s; ++i ) {
+            auto ai = PyList_GetItem( list, i );
+            fprintf( stderr, "%d: %s\n", (int) i, ai->ob_type->tp_name );
+            Py_ssize_t re_size;
+            auto re = PyUnicode_AsWideCharString( ai, &re_size );
+            if ( re ) {
+                fwprintf( stderr, L"%s\n", re );
+                PyMem_Free( re );
+            }
+            Py_DECREF( ai );
+        }
+    }
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -80,7 +99,10 @@ main(int argc, char *argv[])
 
             auto locals = PyObject_Dir( pModule );
             if ( locals ) {
-                fprintf( stderr, "type: %s\n", locals->ob_type->tp_name );
+                fprintf( stderr, "type: %s\n", locals->ob_type->tp_name ); // list
+
+                dump_py_list( locals );
+
                 Py_DECREF( locals );
             }
             else {
