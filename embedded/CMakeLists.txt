@@ -23,3 +23,6 @@ configure_file(foo.py foo.py)
 
 add_executable(prog_13 pure_embedding.cpp)
 target_link_directories(prog_13 PRIVATE ${Python_LIBRARY_DIRS})
+
+add_executable(prog_20 pure_embedding2.cpp)
+target_link_directories(prog_20 PRIVATE ${Python_LIBRARY_DIRS})
