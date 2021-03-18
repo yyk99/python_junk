@@ -386,7 +386,7 @@ globalmapper_exec(PyObject *m)
 }
 
 static struct PyModuleDef_Slot globalmapper_slots[] = {
-    {Py_mod_exec, globalmapper_exec},
+    {Py_mod_exec, (void *)globalmapper_exec},
     {0, NULL},
 };
 
