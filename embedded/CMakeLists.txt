@@ -29,3 +29,7 @@ target_link_libraries(prog_13 PRIVATE ${Python_LIBRARIES})
 add_executable(prog_20 pure_embedding2.cpp)
 target_link_directories(prog_20 PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_20 PRIVATE ${Python_LIBRARIES})
+
+add_executable(globalmapper globalmapper.cpp)
+target_link_directories(globalmapper PRIVATE ${Python_LIBRARY_DIRS})
+target_link_libraries(globalmapper PRIVATE ${Python_LIBRARIES})
