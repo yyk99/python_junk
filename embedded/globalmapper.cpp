@@ -61,7 +61,7 @@ PyInit_spam(void)
     return m;
 }
 
-
+#ifndef SPAM_BUILD_MODULE
 // -----------------------------------
 //
 int
@@ -104,3 +104,4 @@ main(int argc, char *argv[])
     PyMem_RawFree(program);
     return 0;
 }
+#endif
