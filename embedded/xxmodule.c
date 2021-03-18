@@ -444,10 +444,17 @@ main(int argc, char* argv[])
         fprintf(stderr, "Error: could not import module 'xx'\n");
     }
 
+    // ['Null', 'Str', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'bug', 'error', 'foo', 'new', 'roj']
     PyRun_SimpleString(
         "import xx\n"
         "print(dir(xx))\n"
-        "# spam.system('ls -l')\n"
+        "print(xx.__doc__)\n"
+        "print(xx.Str)\n"
+        "print(xx.bug)\n"
+        "print(xx.error)\n"
+        "print(xx.foo)\n"
+        "print(xx.new)\n"
+        "print(xx.roj)\n"
     );
 
     PyMem_RawFree(program);
