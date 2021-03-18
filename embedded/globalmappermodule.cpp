@@ -1,6 +1,6 @@
 
 /* Use this file as a template to start implementing a module that
-   also declares object types. All occurrences of 'Xxo' should be changed
+   also declares object types. All occurrences of 'GMo' should be changed
    to something reasonable for your objects. After that, all other
    occurrences of 'xx' should be changed to something reasonable for your
    module. If your module is named foo your sourcefile should be named
@@ -12,7 +12,7 @@
    other files, you'll have to create a file "foobarobject.h"; see
    floatobject.h for an example. */
 
-/* Xxo objects */
+/* GMo objects */
 
 #include "Python.h"
 
@@ -21,23 +21,23 @@ static PyObject *ErrorObject;
 typedef struct {
     PyObject_HEAD
     PyObject            *x_attr;        /* Attributes dictionary */
-} XxoObject;
+} GMoObject;
 
-//PyTypeObject Xxo_Type;
+//PyTypeObject GMo_Type;
 
-#define XxoObject_Check(v)      Py_IS_TYPE(v, &Xxo_Type)
+#define GMoObject_Check(v)      Py_IS_TYPE(v, &GMo_Type)
 
-/* Xxo methods */
+/* GMo methods */
 
 static void
-Xxo_dealloc(XxoObject *self)
+GMo_dealloc(GMoObject *self)
 {
     Py_XDECREF(self->x_attr);
     PyObject_Free(self);
 }
 
 static PyObject *
-Xxo_demo(XxoObject *self, PyObject *args)
+GMo_demo(GMoObject *self, PyObject *args)
 {
     if (!PyArg_ParseTuple(args, ":demo"))
         return NULL;
@@ -45,14 +45,14 @@ Xxo_demo(XxoObject *self, PyObject *args)
     return Py_None;
 }
 
-static PyMethodDef Xxo_methods[] = {
-    {"demo",            (PyCFunction)Xxo_demo,  METH_VARARGS,
+static PyMethodDef GMo_methods[] = {
+    {"demo",            (PyCFunction)GMo_demo,  METH_VARARGS,
         PyDoc_STR("demo() -> None")},
     {NULL,              NULL}           /* sentinel */
 };
 
 static PyObject *
-Xxo_getattro(XxoObject *self, PyObject *name)
+GMo_getattro(GMoObject *self, PyObject *name)
 {
     if (self->x_attr != NULL) {
         PyObject *v = PyDict_GetItemWithError(self->x_attr, name);
@@ -68,7 +68,7 @@ Xxo_getattro(XxoObject *self, PyObject *name)
 }
 
 static int
-Xxo_setattr(XxoObject *self, const char *name, PyObject *v)
+GMo_setattr(GMoObject *self, const char *name, PyObject *v)
 {
     if (self->x_attr == NULL) {
         self->x_attr = PyDict_New();
@@ -79,25 +79,25 @@ Xxo_setattr(XxoObject *self, const char *name, PyObject *v)
         int rv = PyDict_DelItemString(self->x_attr, name);
         if (rv < 0 && PyErr_ExceptionMatches(PyExc_KeyError))
             PyErr_SetString(PyExc_AttributeError,
-                "delete non-existing Xxo attribute");
+                "delete non-existing GMo attribute");
         return rv;
     }
     else
         return PyDict_SetItemString(self->x_attr, name, v);
 }
 
-static PyTypeObject Xxo_Type = {
+static PyTypeObject GMo_Type = {
     /* The ob_type field must be initialized in the module init function
      * to be portable to Windows without using C++. */
     PyVarObject_HEAD_INIT(NULL, 0)
-    "xxmodule.Xxo",             /*tp_name*/
-    sizeof(XxoObject),          /*tp_basicsize*/
+    "globalmappermodule.GMo",             /*tp_name*/
+    sizeof(GMoObject),          /*tp_basicsize*/
     0,                          /*tp_itemsize*/
     /* methods */
-    (destructor)Xxo_dealloc,    /*tp_dealloc*/
+    (destructor)GMo_dealloc,    /*tp_dealloc*/
     0,                          /*tp_vectorcall_offset*/
     (getattrfunc)0,             /*tp_getattr*/
-    (setattrfunc)Xxo_setattr,   /*tp_setattr*/
+    (setattrfunc)GMo_setattr,   /*tp_setattr*/
     0,                          /*tp_as_async*/
     0,                          /*tp_repr*/
     0,                          /*tp_as_number*/
@@ -106,7 +106,7 @@ static PyTypeObject Xxo_Type = {
     0,                          /*tp_hash*/
     0,                          /*tp_call*/
     0,                          /*tp_str*/
-    (getattrofunc)Xxo_getattro, /*tp_getattro*/
+    (getattrofunc)GMo_getattro, /*tp_getattro*/
     0,                          /*tp_setattro*/
     0,                          /*tp_as_buffer*/
     Py_TPFLAGS_DEFAULT,         /*tp_flags*/
@@ -117,7 +117,7 @@ static PyTypeObject Xxo_Type = {
     0,                          /*tp_weaklistoffset*/
     0,                          /*tp_iter*/
     0,                          /*tp_iternext*/
-    Xxo_methods,                /*tp_methods*/
+    GMo_methods,                /*tp_methods*/
     0,                          /*tp_members*/
     0,                          /*tp_getset*/
     0,                          /*tp_base*/
@@ -133,11 +133,11 @@ static PyTypeObject Xxo_Type = {
 };
 /* --------------------------------------------------------------------- */
 
-static XxoObject *
-newXxoObject( PyObject *arg )
+static GMoObject *
+newGMoObject( PyObject *arg )
 {
-    XxoObject *self;
-    self = PyObject_New( XxoObject, &Xxo_Type );
+    GMoObject *self;
+    self = PyObject_New( GMoObject, &GMo_Type );
     if ( self == NULL )
         return NULL;
     self->x_attr = NULL;
@@ -146,13 +146,13 @@ newXxoObject( PyObject *arg )
 
 /* Function of two integers returning integer */
 
-PyDoc_STRVAR(xx_foo_doc,
+PyDoc_STRVAR(globalmapper_foo_doc,
 "foo(i,j)\n\
 \n\
 Return the sum of i and j.");
 
 static PyObject *
-xx_foo(PyObject *self, PyObject *args)
+globalmapper_foo(PyObject *self, PyObject *args)
 {
     long i, j;
     long res;
@@ -163,16 +163,16 @@ xx_foo(PyObject *self, PyObject *args)
 }
 
 
-/* Function of no arguments returning new Xxo object */
+/* Function of no arguments returning new GMo object */
 
 static PyObject *
-xx_new(PyObject *self, PyObject *args)
+globalmapper_new(PyObject *self, PyObject *args)
 {
-    XxoObject *rv;
+    GMoObject *rv;
 
     if (!PyArg_ParseTuple(args, ":new"))
         return NULL;
-    rv = newXxoObject(args);
+    rv = newGMoObject(args);
     if (rv == NULL)
         return NULL;
     return (PyObject *)rv;
@@ -181,7 +181,7 @@ xx_new(PyObject *self, PyObject *args)
 /* Example with subtle bug from extensions manual ("Thin Ice"). */
 
 static PyObject *
-xx_bug(PyObject *self, PyObject *args)
+globalmapper_bug(PyObject *self, PyObject *args)
 {
     PyObject *list, *item;
 
@@ -202,7 +202,7 @@ xx_bug(PyObject *self, PyObject *args)
 /* Test bad format character */
 
 static PyObject *
-xx_roj(PyObject *self, PyObject *args)
+globalmapper_roj(PyObject *self, PyObject *args)
 {
     PyObject *a;
     long b;
@@ -219,7 +219,7 @@ static PyTypeObject Str_Type = {
     /* The ob_type field must be initialized in the module init function
      * to be portable to Windows without using C++. */
     PyVarObject_HEAD_INIT(NULL, 0)
-    "xxmodule.Str",             /*tp_name*/
+    "globalmappermodule.Str",             /*tp_name*/
     0,                          /*tp_basicsize*/
     0,                          /*tp_itemsize*/
     /* methods */
@@ -249,7 +249,7 @@ static PyTypeObject Str_Type = {
     0,                          /*tp_methods*/
     0,                          /*tp_members*/
     0,                          /*tp_getset*/
-    0, /* see PyInit_xx */      /*tp_base*/
+    0, /* see PyInit_globalmapper */      /*tp_base*/
     0,                          /*tp_dict*/
     0,                          /*tp_descr_get*/
     0,                          /*tp_descr_set*/
@@ -274,7 +274,7 @@ static PyTypeObject Null_Type = {
     /* The ob_type field must be initialized in the module init function
      * to be portable to Windows without using C++. */
     PyVarObject_HEAD_INIT(NULL, 0)
-    "xxmodule.Null",            /*tp_name*/
+    "globalmappermodule.Null",            /*tp_name*/
     0,                          /*tp_basicsize*/
     0,                          /*tp_itemsize*/
     /* methods */
@@ -304,7 +304,7 @@ static PyTypeObject Null_Type = {
     0,                          /*tp_methods*/
     0,                          /*tp_members*/
     0,                          /*tp_getset*/
-    0, /* see PyInit_xx */      /*tp_base*/
+    0, /* see PyInit_globalmapper */      /*tp_base*/
     0,                          /*tp_dict*/
     0,                          /*tp_descr_get*/
     0,                          /*tp_descr_set*/
@@ -322,14 +322,14 @@ static PyTypeObject Null_Type = {
 
 /* List of functions defined in the module */
 
-static PyMethodDef xx_methods[] = {
-    {"roj",             xx_roj,         METH_VARARGS,
+static PyMethodDef globalmapper_methods[] = {
+    {"roj",             globalmapper_roj,         METH_VARARGS,
         PyDoc_STR("roj(a,b) -> None")},
-    {"foo",             xx_foo,         METH_VARARGS,
-        xx_foo_doc},
-    {"new",             xx_new,         METH_VARARGS,
+    {"foo",             globalmapper_foo,         METH_VARARGS,
+        globalmapper_foo_doc},
+    {"new",             globalmapper_new,         METH_VARARGS,
         PyDoc_STR("new() -> new Xx object")},
-    {"bug",             xx_bug,         METH_VARARGS,
+    {"bug",             globalmapper_bug,         METH_VARARGS,
         PyDoc_STR("bug(o) -> None")},
     {NULL,              NULL}           /* sentinel */
 };
@@ -339,7 +339,7 @@ PyDoc_STRVAR(module_doc,
 
 
 static int
-xx_exec(PyObject *m)
+globalmapper_exec(PyObject *m)
 {
     /* Slot initialization is subject to the rules of initializing globals.
        C99 requires the initializers to be "address constants".  Function
@@ -358,12 +358,12 @@ xx_exec(PyObject *m)
 
     /* Finalize the type object including setting type of the new type
      * object; doing it here is required for portability, too. */
-    if (PyType_Ready(&Xxo_Type) < 0)
+    if (PyType_Ready(&GMo_Type) < 0)
         goto fail;
 
     /* Add some symbolic constants to the module */
     if (ErrorObject == NULL) {
-        ErrorObject = PyErr_NewException("xx.error", NULL, NULL);
+        ErrorObject = PyErr_NewException("globalmapper.error", NULL, NULL);
         if (ErrorObject == NULL)
             goto fail;
     }
@@ -385,29 +385,29 @@ xx_exec(PyObject *m)
     return -1;
 }
 
-static struct PyModuleDef_Slot xx_slots[] = {
-    {Py_mod_exec, xx_exec},
+static struct PyModuleDef_Slot globalmapper_slots[] = {
+    {Py_mod_exec, globalmapper_exec},
     {0, NULL},
 };
 
-static struct PyModuleDef xxmodule = {
+static struct PyModuleDef globalmappermodule = {
     PyModuleDef_HEAD_INIT,
-    "xx",
+    "globalmapper",
     module_doc,
     0,
-    xx_methods,
-    xx_slots,
+    globalmapper_methods,
+    globalmapper_slots,
     NULL,
     NULL,
     NULL
 };
 
-/* Export function for the module (*must* be called PyInit_xx) */
+/* Export function for the module (*must* be called PyInit_globalmapper) */
 
 PyMODINIT_FUNC
-PyInit_xx(void)
+PyInit_globalmapper(void)
 {
-    return PyModuleDef_Init(&xxmodule);
+    return PyModuleDef_Init(&globalmappermodule);
 }
 
 #if GM_BUILD_EMBEDDED
@@ -423,7 +423,7 @@ main(int argc, char* argv[])
     }
 
     /* Add a built-in module, before Py_Initialize */
-    if (PyImport_AppendInittab("xx", PyInit_xx) == -1) {
+    if (PyImport_AppendInittab("globalmapper", PyInit_globalmapper) == -1) {
         fprintf(stderr, "Error: could not extend in-built modules table\n");
         exit(1);
     }
@@ -438,23 +438,23 @@ main(int argc, char* argv[])
     /* Optionally import the module; alternatively,
        import can be deferred until the embedded script
        imports it. */
-    PyObject *pmodule = PyImport_ImportModule("xx");
+    PyObject *pmodule = PyImport_ImportModule("globalmapper");
     if (!pmodule) {
         PyErr_Print();
-        fprintf(stderr, "Error: could not import module 'xx'\n");
+        fprintf(stderr, "Error: could not import module 'globalmapper'\n");
     }
 
     // ['Null', 'Str', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'bug', 'error', 'foo', 'new', 'roj']
     PyRun_SimpleString(
-        "import xx\n"
-        "print(dir(xx))\n"
-        "print(xx.__doc__)\n"
-        "print(xx.Str)\n"
-        "print(xx.bug)\n"
-        "print(xx.error)\n"
-        "print(xx.foo)\n"
-        "print(xx.new)\n"
-        "print(xx.roj)\n"
+        "import globalmapper as gm\n"
+        "print(dir(gm))\n"
+        "print(gm.__doc__)\n"
+        "print(gm.Str)\n"
+        "print(gm.bug)\n"
+        "print(gm.error)\n"
+        "print(gm.foo)\n"
+        "print(gm.new)\n"
+        "print(gm.roj)\n"
     );
 
     PyMem_RawFree(program);
