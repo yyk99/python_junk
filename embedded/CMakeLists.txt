@@ -30,12 +30,12 @@ add_executable(prog_20 pure_embedding2.cpp)
 target_link_directories(prog_20 PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_20 PRIVATE ${Python_LIBRARIES})
 
-add_executable(prog_GM globalmapper.cpp)
+add_executable(prog_GM spammodule.cpp)
 target_link_directories(prog_GM PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_GM PRIVATE ${Python_LIBRARIES})
 
 # building a module
-add_library(spam SHARED globalmapper.cpp)
+add_library(spam SHARED spammodule.cpp)
 target_compile_definitions(spam PRIVATE -DSPAM_BUILD_MODULE=1)
 target_link_directories(spam PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(spam PRIVATE ${Python_LIBRARIES})
