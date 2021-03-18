@@ -95,7 +95,11 @@ main(int argc, char *argv[])
         fprintf(stderr, "Error: could not import module 'spam'\n");
     }
 
-    //    ...
+    PyRun_SimpleString(
+	"import spam\n" 
+	"print(dir(spam))\n"
+        "spam.system('ls -l')\n" 
+    );
 
     PyMem_RawFree(program);
     return 0;
