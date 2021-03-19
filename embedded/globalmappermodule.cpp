@@ -179,6 +179,7 @@ globalmapper_new(PyObject *self, PyObject *args)
 }
 
 /* Example with subtle bug from extensions manual ("Thin Ice"). */
+/* See: https://docs.python.org/3.10/extending/extending.html#thin-ice */
 
 static PyObject *
 globalmapper_bug(PyObject *self, PyObject *args)
@@ -465,6 +466,7 @@ main(int argc, char* argv[])
         "    gm.roj('hello there')\n"
         "except Exception as err:\n"
         "    print('Error: ', err)\n"
+        "print(gm.Str(123))\n"
     );
 
     PyMem_RawFree(program);
