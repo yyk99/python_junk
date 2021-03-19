@@ -455,10 +455,16 @@ main(int argc, char* argv[])
         "print(gm.foo)\n"
         "print(gm.new)\n"
         "print(gm.roj)\n"
-        "print(gm.bug([1,2,3]))\n"
+        "print(gm.bug([10,2,3]))\n"
         "#print(gm.roj(1, 2))\n"
-        "print(gm.roj('1'))\n"
-        "print(gm.roj(k=1, v=42))\n"
+        "#print(gm.roj('1'))\n"
+        "#print(gm.roj(k=1, v=42))\n"
+        "print(gm.bug([42,2,3,4,5]))\n"
+        "try:\n"
+        "    print('Just before gm.toj(...)')\n"
+        "    gm.roj('hello there')\n"
+        "except Exception as err:\n"
+        "    print('Error: ', err)\n"
     );
 
     PyMem_RawFree(program);
