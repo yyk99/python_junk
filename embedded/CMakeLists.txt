@@ -13,6 +13,7 @@ endif()
 include_directories(${Python_INCLUDE_DIRS})
 
 message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
+message(STATUS "Python_VERSION=${Python_VERSION}")
 
 add_executable(prog_11 very_high_level.cpp)
 target_link_directories(prog_11 PRIVATE ${Python_LIBRARY_DIRS})

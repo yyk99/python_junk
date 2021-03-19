@@ -1,4 +1,3 @@
-
 /* Use this file as a template to start implementing a module that
    also declares object types. All occurrences of 'GMo' should be changed
    to something reasonable for your objects. After that, all other
@@ -14,6 +13,7 @@
 
 /* GMo objects */
 
+#define PY_SSIZE_T_CLEAN 1
 #include "Python.h"
 
 static PyObject *ErrorObject;
@@ -90,7 +90,7 @@ static PyTypeObject GMo_Type = {
     /* The ob_type field must be initialized in the module init function
      * to be portable to Windows without using C++. */
     PyVarObject_HEAD_INIT(NULL, 0)
-    "globalmappermodule.GMo",             /*tp_name*/
+    "globalmappermodule.GMo",   /*tp_name*/
     sizeof(GMoObject),          /*tp_basicsize*/
     0,                          /*tp_itemsize*/
     /* methods */
@@ -205,7 +205,7 @@ static PyObject *
 globalmapper_roj(PyObject *self, PyObject *args)
 {
     PyObject *a;
-    long b;
+    Py_ssize_t b;
     if (!PyArg_ParseTuple(args, "O#:roj", &a, &b))
         return NULL;
     Py_INCREF(Py_None);
@@ -219,7 +219,7 @@ static PyTypeObject Str_Type = {
     /* The ob_type field must be initialized in the module init function
      * to be portable to Windows without using C++. */
     PyVarObject_HEAD_INIT(NULL, 0)
-    "globalmappermodule.Str",             /*tp_name*/
+    "globalmappermodule.Str",   /*tp_name*/
     0,                          /*tp_basicsize*/
     0,                          /*tp_itemsize*/
     /* methods */
@@ -455,6 +455,10 @@ main(int argc, char* argv[])
         "print(gm.foo)\n"
         "print(gm.new)\n"
         "print(gm.roj)\n"
+        "print(gm.bug([1,2,3]))\n"
+        "#print(gm.roj(1, 2))\n"
+        "print(gm.roj('1'))\n"
+        "print(gm.roj(k=1, v=42))\n"
     );
 
     PyMem_RawFree(program);
