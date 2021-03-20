@@ -505,7 +505,9 @@ public:
 
     void SetUp() override
     {
-        program = Py_DecodeLocale("test1", NULL);
+        const char *current_name = ::testing::UnitTest::GetInstance()->current_test_info()->name();
+
+        program = Py_DecodeLocale(current_name, NULL);
         ASSERT_TRUE(program != NULL)
             << "Fatal error: cannot decode program name";
 
