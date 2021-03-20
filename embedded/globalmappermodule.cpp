@@ -462,14 +462,132 @@ main(int argc, char* argv[])
         "#print(gm.roj(k=1, v=42))\n"
         "print(gm.bug([42,2,3,4,5]))\n"
         "try:\n"
-        "    print('Just before gm.toj(...)')\n"
+        "    print('Just before gm.roj(...)')\n"
         "    gm.roj('hello there')\n"
         "except Exception as err:\n"
         "    print('Error: ', err)\n"
         "print(gm.Str(123))\n"
+        "o1 = gm.new()\n"
+/*
+    ['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
+     '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', 
+     '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', 
+     '__sizeof__', '__str__', '__subclasshook__', 'demo']
+*/
+        "print(dir(o1))\n"
+        "o1.demo()\n"
+        "o1.attr1 = 'otsos'\n"
+        "print('o1.attr1 =', o1.attr1)\n"
+        "o1.attr2 = 'podsos'\n"
+        "print('o1.attr2 =', o1.attr2)\n"
+        "print(o1.__dir__())\n"
+        "o1.demo()\n"
+        "# print(enumerate(o1,0))\n"
     );
 
     PyMem_RawFree(program);
     return 0;
 }
+#endif
+
+#if GM_BUILD_TEST
+
+#include <gtest/gtest.h>
+
+class GlobalMapperF : public ::testing::Test
+{
+    wchar_t* program;
+public:
+
+    GlobalMapperF() : program{}
+    {}
+
+    ~GlobalMapperF() override
+    {}
+
+    void SetUp() override
+    {
+        const char *current_name = ::testing::UnitTest::GetInstance()->current_test_info()->name();
+
+        program = Py_DecodeLocale(current_name, NULL);
+        ASSERT_TRUE(program != NULL)
+            << "Fatal error: cannot decode program name";
+
+        /* Add a built-in module, before Py_Initialize */
+        ASSERT_NE(-1, PyImport_AppendInittab("globalmapper", PyInit_globalmapper))
+            << "Error: could not extend in-built modules table";
+
+        /* Pass argv[0] to the Python interpreter */
+        Py_SetProgramName(program);
+
+        /* Initialize the Python interpreter.  Required.
+           If this step fails, it will be a fatal error. */
+        Py_Initialize();
+#if 0
+        /* Optionally import the module; alternatively,
+           import can be deferred until the embedded script
+           imports it. */
+        PyObject* pmodule = PyImport_ImportModule("globalmapper");
+        ASSERT_TRUE(pmodule != 0)
+            // PyErr_Print();
+            << "Error: could not import module 'globalmapper'\n";
+#endif
+    }
+
+    void TearDown() override
+    {
+        PyMem_RawFree(program);
+    }
+};
+
+
+TEST_F(GlobalMapperF, t1)
+{
+    // ['Null', 'Str', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'bug', 'error', 'foo', 'new', 'roj']
+    PyRun_SimpleString(
+        "import globalmapper as gm\n"
+        "print(dir(gm))\n"
+        "print(gm.__doc__)\n"
+        "print(gm.Str)\n"
+        "print(gm.bug)\n"
+        "print(gm.error)\n"
+        "print(gm.foo)\n"
+        "print(gm.new)\n"
+        "print(gm.roj)\n"
+        "print(gm.bug([10,2,3]))\n"
+        "#print(gm.roj(1, 2))\n"
+        "#print(gm.roj('1'))\n"
+        "#print(gm.roj(k=1, v=42))\n"
+        "print(gm.bug([42,2,3,4,5]))\n"
+        "try:\n"
+        "    print('Just before gm.roj(...)')\n"
+        "    gm.roj('hello there')\n"
+        "except Exception as err:\n"
+        "    print('Error: ', err)\n"
+    );
+}
+
+TEST_F(GlobalMapperF, t2)
+{
+    // ['Null', 'Str', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'bug', 'error', 'foo', 'new', 'roj']
+    PyRun_SimpleString(
+        "import globalmapper as gm\n"
+        "o1 = gm.new()\n"
+        /*
+            ['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__',
+             '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__',
+             '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__',
+             '__sizeof__', '__str__', '__subclasshook__', 'demo']
+        */
+        "print(dir(o1))\n"
+        "o1.demo()\n"
+        "o1.attr1 = 'otsos'\n"
+        "print('o1.attr1 =', o1.attr1)\n"
+        "o1.attr2 = 'podsos'\n"
+        "print('o1.attr2 =', o1.attr2)\n"
+        "print(o1.__dir__())\n"
+        "o1.demo()\n"
+    );
+}
+
 #endif
