@@ -461,7 +461,7 @@ main(int argc, char* argv[])
         "#print(gm.roj(k=1, v=42))\n"
         "print(gm.bug([42,2,3,4,5]))\n"
         "try:\n"
-        "    print('Just before gm.toj(...)')\n"
+        "    print('Just before gm.roj(...)')\n"
         "    gm.roj('hello there')\n"
         "except Exception as err:\n"
         "    print('Error: ', err)\n"
