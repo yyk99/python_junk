@@ -4,6 +4,8 @@
 project(embedded_primer)
 cmake_minimum_required(VERSION 3.13)
 
+option (BUILD_TESTS "Build tests" OFF)
+
 find_package (Python COMPONENTS Interpreter Development)
 
 if (NOT Python_FOUND)
@@ -50,4 +52,63 @@ add_executable(prog_GM globalmappermodule.cpp)
 target_compile_definitions(prog_GM PRIVATE -DGM_BUILD_EMBEDDED=1)
 target_link_directories(prog_GM PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_GM PRIVATE ${Python_LIBRARIES})
+
+if(BUILD_TESTS)
+    enable_testing()
+
+    include(ExternalProject)
+
+    list(APPEND CACHE_ARGS "-DBUILD_GMOCK:BOOL=OFF")
+#    list(APPEND CACHE_ARGS "-DBUILD_GTEST:BOOL=ON") # not used in 1.8.1
+    list(APPEND CACHE_ARGS "-Dgtest_force_shared_crt:BOOL=ON")
+    string(REPLACE ";" "$<SEMICOLON>" CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}")
+
+    list(APPEND CACHE_ARGS "-DCMAKE_CONFIGURATION_TYPES:STRING=${CONFIGURATION_TYPES}")
+
+    ExternalProject_Add(
+        googletest-build
+        GIT_REPOSITORY    https://github.com/google/googletest.git
+        GIT_TAG           "release-1.8.1"
+        SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
+        BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
+        TEST_COMMAND      ""
+        CMAKE_ARGS        ${CACHE_ARGS}
+        INSTALL_COMMAND   ""
+#        BUILD_COMMAND     ""
+    )
+
+    set(GTEST_SOURCE_DIR ${CMAKE_BINARY_DIR}/googletest-src/googletest)
+    set(GTEST_ROOT ${GTEST_SOURCE_DIR})
+    set(GTEST_INCLUDE_DIR ${GTEST_ROOT}/include)
+    if(WIN32)
+      set(GTEST_BOTH_LIBS
+        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/gtest_main$<$<CONFIG:Debug>:d>.lib
+        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/gtest$<$<CONFIG:Debug>:d>.lib
+        )
+    else()
+      set(GTEST_BOTH_LIBS
+        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/libgtest_main.a
+        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/libgtest.a
+        -pthread
+        )
+    endif()      
+
+    # MS VS2012 needs this to compile tupe templates
+    add_definitions(-D_VARIADIC_MAX=10)
+    include_directories(${GTEST_INCLUDE_DIR} ${GTEST_ROOT})
+endif(BUILD_TESTS)
+
+
+if (BUILD_TESTS)
+
+add_executable(test_GM globalmappermodule.cpp)
+target_compile_definitions(test_GM PRIVATE -DGM_BUILD_TEST=1)
+target_link_directories(test_GM PRIVATE ${Python_LIBRARY_DIRS})
+target_link_libraries(test_GM PRIVATE ${Python_LIBRARIES})
+target_link_libraries(test_GM PRIVATE ${GTEST_BOTH_LIBS})
+add_test(test_GM test_GM)
+
+endif(BUILD_TESTS)
+
+
 
