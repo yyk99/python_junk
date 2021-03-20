@@ -492,31 +492,53 @@ main(int argc, char* argv[])
 
 #include <gtest/gtest.h>
 
-TEST(globalmapper, t1)
+class GlobalMapperF : public ::testing::Test
 {
-    wchar_t* program = Py_DecodeLocale("test1", NULL);
-    ASSERT_TRUE(program != NULL) 
-        << "Fatal error: cannot decode program name";
+    wchar_t* program;
+public:
 
-    /* Add a built-in module, before Py_Initialize */
-    ASSERT_NE(-1, PyImport_AppendInittab("globalmapper", PyInit_globalmapper))
-        << "Error: could not extend in-built modules table";
- 
-    /* Pass argv[0] to the Python interpreter */
-    Py_SetProgramName(program);
+    GlobalMapperF() : program{}
+    {}
 
-    /* Initialize the Python interpreter.  Required.
-       If this step fails, it will be a fatal error. */
-    Py_Initialize();
+    ~GlobalMapperF() override
+    {}
 
-    /* Optionally import the module; alternatively,
-       import can be deferred until the embedded script
-       imports it. */
-    PyObject* pmodule = PyImport_ImportModule("globalmapper");
-    ASSERT_TRUE(pmodule != 0)
-        // PyErr_Print();
-        << "Error: could not import module 'globalmapper'\n";
+    void SetUp() override
+    {
+        program = Py_DecodeLocale("test1", NULL);
+        ASSERT_TRUE(program != NULL)
+            << "Fatal error: cannot decode program name";
 
+        /* Add a built-in module, before Py_Initialize */
+        ASSERT_NE(-1, PyImport_AppendInittab("globalmapper", PyInit_globalmapper))
+            << "Error: could not extend in-built modules table";
+
+        /* Pass argv[0] to the Python interpreter */
+        Py_SetProgramName(program);
+
+        /* Initialize the Python interpreter.  Required.
+           If this step fails, it will be a fatal error. */
+        Py_Initialize();
+#if 0
+        /* Optionally import the module; alternatively,
+           import can be deferred until the embedded script
+           imports it. */
+        PyObject* pmodule = PyImport_ImportModule("globalmapper");
+        ASSERT_TRUE(pmodule != 0)
+            // PyErr_Print();
+            << "Error: could not import module 'globalmapper'\n";
+#endif
+    }
+
+    void TearDown() override
+    {
+        PyMem_RawFree(program);
+    }
+};
+
+
+TEST_F(GlobalMapperF, t1)
+{
     // ['Null', 'Str', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'bug', 'error', 'foo', 'new', 'roj']
     PyRun_SimpleString(
         "import globalmapper as gm\n"
@@ -538,6 +560,14 @@ TEST(globalmapper, t1)
         "    gm.roj('hello there')\n"
         "except Exception as err:\n"
         "    print('Error: ', err)\n"
+    );
+}
+
+TEST_F(GlobalMapperF, t2)
+{
+    // ['Null', 'Str', '__doc__', '__loader__', '__name__', '__package__', '__spec__', 'bug', 'error', 'foo', 'new', 'roj']
+    PyRun_SimpleString(
+        "import globalmapper as gm\n"
         "o1 = gm.new()\n"
         /*
             ['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__',
@@ -553,10 +583,7 @@ TEST(globalmapper, t1)
         "print('o1.attr2 =', o1.attr2)\n"
         "print(o1.__dir__())\n"
         "o1.demo()\n"
-        "# print(enumerate(o1,0))\n"
     );
-
-    PyMem_RawFree(program);
 }
 
 #endif
