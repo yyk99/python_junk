@@ -1,0 +1,15 @@
+from distutils.core import setup, Extension
+
+def main():
+    setup(name="spam",
+          version="1.0.0",
+          description="Spam demo module",
+          author="Yuri K.",
+          author_email="yyk99@mail.ru",
+          ext_modules=[Extension("spam", ["${CMAKE_CURRENT_SOURCE_DIR}/spammodule.cpp"])])
+
+if __name__ == "__main__":
+    main()
+
+# To istall the module 
+# python3 spam-setup.py install --user
