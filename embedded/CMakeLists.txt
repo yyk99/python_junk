@@ -43,6 +43,9 @@ target_compile_definitions(spam PRIVATE -DSPAM_BUILD_MODULE=1)
 target_link_directories(spam PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(spam PRIVATE ${Python_LIBRARIES})
 
+configure_file(spam-setup.py.template spam-setup.py)
+
+
 add_executable(prog_xx xxmodule.c)
 target_compile_definitions(prog_xx PRIVATE -DXX_BUILD_TEST=1)
 target_link_directories(prog_xx PRIVATE ${Python_LIBRARY_DIRS})
