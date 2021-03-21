@@ -6,6 +6,11 @@ cmake_minimum_required(VERSION 3.13)
 
 option (BUILD_TESTS "Build tests" OFF)
 
+# I do not want to find a 3rdparty python installation.
+set(Python_FIND_REGISTRY "NEVER")
+
+message (STATUS "Python_FIND_REGISTRY=${Python_FIND_REGISTRY}")
+
 find_package (Python COMPONENTS Interpreter Development)
 
 if (NOT Python_FOUND)
