@@ -38,13 +38,14 @@ target_link_directories(prog_spam PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_spam PRIVATE ${Python_LIBRARIES})
 
 # building a module
-add_library(spam SHARED spammodule.cpp)
+add_library(spam SHARED spammodule.cpp spam-setup.py.template)
 target_compile_definitions(spam PRIVATE -DSPAM_BUILD_MODULE=1)
 target_link_directories(spam PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(spam PRIVATE ${Python_LIBRARIES})
 
+message(STATUS "Python_LIBRARY_RELEASE=${Python_LIBRARY_RELEASE}")
+set (SPAM_MODULE_LIBRARIES "'${Python_LIBRARY_RELEASE}'")
 configure_file(spam-setup.py.template spam-setup.py)
-
 
 add_executable(prog_xx xxmodule.c)
 target_compile_definitions(prog_xx PRIVATE -DXX_BUILD_TEST=1)

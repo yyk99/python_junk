@@ -2,14 +2,25 @@ from distutils.core import setup, Extension
 
 def main():
     setup(name="spam",
-          version="1.0.0",
-          description="Spam demo module",
-          author="Yuri K.",
-          author_email="yyk99@mail.ru",
-          ext_modules=[Extension("spam", ["${CMAKE_CURRENT_SOURCE_DIR}/spammodule.cpp"])])
+        version="1.0.0",
+        description="Spam demo module",
+        author="Yuri K.",
+        author_email="yyk99@mail.ru",
+        ext_modules = [Extension("spam", 
+            ["${CMAKE_CURRENT_SOURCE_DIR}/spammodule.cpp"],
+#            define_macros = [('MAJOR_VERSION', '1'),  ('MINOR_VERSION', '0')],
+#            include_dirs = ['/usr/local/include'],
+             libraries = [${SPAM_MODULE_LIBRARIES}],
+             library_dirs = ['${Python_LIBRARY_DIRS}'],
+             )
+             ],
+    )
 
 if __name__ == "__main__":
     main()
 
-# To istall the module 
-# python3 spam-setup.py install --user
+# To install the module for the local user 
+# $ python3 spam-setup.py install --user
+# To create a windows distribution
+# $ python3 spam-setup.py bdist_wininst
+# See https://docs.python.org/3/extending/building.html
