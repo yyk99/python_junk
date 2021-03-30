@@ -8,6 +8,8 @@ add_library(MapperLib STATIC
     Mapper.cpp 
     Mapper.h
     )
+set_property(TARGET MapperLib PROPERTY FOLDER libs)
+
 add_executable(MapperApp MapperMain.cpp)
 set_property(TARGET MapperApp PROPERTY FOLDER apps)
 
@@ -24,6 +26,7 @@ if (SWIG_FOUND)
 	target_link_libraries(mappermodule PRIVATE MapperLib)
 	target_link_directories(mappermodule PRIVATE ${Python_LIBRARY_DIRS})
 	target_link_libraries(mappermodule PRIVATE ${Python_LIBRARIES})
+	set_property(TARGET mappermodule PROPERTY FOLDER libs)
 
 endif()
 

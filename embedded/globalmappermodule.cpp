@@ -514,7 +514,7 @@ public:
             << "Fatal error: cannot decode program name";
 
         /* Add a built-in module, before Py_Initialize */
-        ASSERT_NE(-1, PyImport_AppendInittab("globalmapper", PyInit_globalmapper))
+        ASSERT_NE(PyImport_AppendInittab("globalmapper", PyInit_globalmapper), -1)
             << "Error: could not extend in-built modules table";
 
         /* Pass argv[0] to the Python interpreter */

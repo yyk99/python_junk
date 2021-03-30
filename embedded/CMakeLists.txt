@@ -118,6 +118,7 @@ add_library(spam SHARED spammodule.cpp spam-setup.py.template)
 target_compile_definitions(spam PRIVATE -DSPAM_BUILD_MODULE=1)
 target_link_directories(spam PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(spam PRIVATE ${Python_LIBRARIES})
+set_property(TARGET spam PROPERTY FOLDER libs)
 
 message(STATUS "Python_LIBRARY_RELEASE=${Python_LIBRARY_RELEASE}")
 set (SPAM_MODULE_LIBRARIES "'${Python_LIBRARY_RELEASE}'")
