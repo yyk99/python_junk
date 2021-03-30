@@ -71,7 +71,7 @@ dump_py_list( PyObject *list )
                 fwprintf( stderr, L"%s\n", re );
                 PyMem_Free( re );
             }
-            Py_DECREF( ai );
+            //Py_DECREF( ai );
         }
     }
 }
@@ -109,15 +109,34 @@ TEST_F( MapperModuleF, t3 )
 
     ASSERT_TRUE( pModule != NULL );
 
-#if 0
     auto locals = PyObject_Dir( pModule );
     ASSERT_TRUE( locals != NULL );
 
     fprintf( stderr, "type: %s\n", locals->ob_type->tp_name ); // list
     dump_py_list( locals );
     Py_DECREF( locals );
-#endif
+
     Py_DECREF( pModule );
 }
+
+
+//TEST_F( MapperModuleF, t3 )
+//{
+//    auto pName = PyUnicode_DecodeFSDefault( "mappermodule" );
+//    auto pModule = PyImport_Import( pName );
+//    Py_DECREF( pName );
+//
+//    ASSERT_TRUE( pModule != NULL );
+//
+//#if 0
+//    auto locals = PyObject_Dir( pModule );
+//    ASSERT_TRUE( locals != NULL );
+//
+//    fprintf( stderr, "type: %s\n", locals->ob_type->tp_name ); // list
+//    dump_py_list( locals );
+//    Py_DECREF( locals );
+//#endif
+//    Py_DECREF( pModule );
+//}
 
 // end of file
