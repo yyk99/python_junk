@@ -20,6 +20,20 @@ endif()
 message(STATUS "Python_VERSION=${Python_VERSION}")
 message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
 
+# SWIG
+
+set(SWIG_EXECUTABLE "" CACHE FILEPATH "Swig executable")
+
+find_package(SWIG 4.0 COMPONENTS python REQUIRED)
+
+if(SWIG_FOUND)
+  message(STATUS "SWIG found: ${SWIG_EXECUTABLE}")
+endif()
+
+# Configure ...
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 include_directories(${Python_INCLUDE_DIRS})
 
 
@@ -75,6 +89,7 @@ endif(BUILD_TESTS)
 add_executable(prog_11 very_high_level.cpp)
 target_link_directories(prog_11 PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_11 PRIVATE ${Python_LIBRARIES})
+set_property(TARGET prog_11 PROPERTY FOLDER apps)
 
 configure_file(py_samples/multiply.py multiply.py)
 configure_file(py_samples/test_numarg.py test_numarg.py)
@@ -83,14 +98,17 @@ configure_file(py_samples/foo.py foo.py)
 add_executable(prog_13 pure_embedding.cpp)
 target_link_directories(prog_13 PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_13 PRIVATE ${Python_LIBRARIES})
+set_property(TARGET prog_13 PROPERTY FOLDER apps)
 
 add_executable(prog_20 pure_embedding2.cpp)
 target_link_directories(prog_20 PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_20 PRIVATE ${Python_LIBRARIES})
+set_property(TARGET prog_20 PROPERTY FOLDER apps)
 
 add_executable(prog_spam spammodule.cpp)
 target_link_directories(prog_spam PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_spam PRIVATE ${Python_LIBRARIES})
+set_property(TARGET prog_spam PROPERTY FOLDER apps)
 
 # building a module
 add_library(spam SHARED spammodule.cpp spam-setup.py.template)
@@ -106,11 +124,13 @@ add_executable(prog_xx xxmodule.c)
 target_compile_definitions(prog_xx PRIVATE -DXX_BUILD_TEST=1)
 target_link_directories(prog_xx PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_xx PRIVATE ${Python_LIBRARIES})
+set_property(TARGET prog_xx PROPERTY FOLDER apps)
 
 add_executable(prog_GM globalmappermodule.cpp)
 target_compile_definitions(prog_GM PRIVATE -DGM_BUILD_EMBEDDED=1)
 target_link_directories(prog_GM PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(prog_GM PRIVATE ${Python_LIBRARIES})
+set_property(TARGET prog_GM PROPERTY FOLDER apps)
 
 add_subdirectory(Mapper)
 
@@ -120,6 +140,8 @@ add_subdirectory(Mapper)
 if (BUILD_TESTS)
 
 add_executable(test_GM globalmappermodule.cpp)
+set_property(TARGET test_GM PROPERTY FOLDER tests)
+
 target_compile_definitions(test_GM PRIVATE -DGM_BUILD_TEST=1)
 target_link_directories(test_GM PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(test_GM PRIVATE ${Python_LIBRARIES})

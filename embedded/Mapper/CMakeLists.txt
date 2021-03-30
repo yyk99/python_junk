@@ -9,11 +9,13 @@ add_library(MapperLib
 	Mapper.h
 	)
 add_executable(MapperApp MapperMain.cpp)
+set_property(TARGET MapperApp PROPERTY FOLDER apps)
 
 if (BUILD_TESTS)
 
 add_executable(test_Mapper Mapper.cpp Mapper.h)
 target_compile_definitions(test_Mapper PRIVATE -DMAPPER_BUILD_TEST=1)
+set_property(TARGET test_Mapper PROPERTY FOLDER tests)
 #target_link_directories(test_GM PRIVATE ${Python_LIBRARY_DIRS})
 #target_link_libraries(test_GM PRIVATE ${Python_LIBRARIES})
 target_link_libraries(test_Mapper PRIVATE ${GTEST_BOTH_LIBS})
