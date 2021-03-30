@@ -1,5 +1,5 @@
 /* File : mappermodule.i */
-%module example
+%module mappermodule
 
 %{
 #include "Mapper.h"
