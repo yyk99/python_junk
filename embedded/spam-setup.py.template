@@ -23,4 +23,6 @@ if __name__ == "__main__":
 # $ python3 spam-setup.py install --user
 # To create a windows distribution
 # $ python3 spam-setup.py bdist_wininst
-# See https://docs.python.org/3/extending/building.html
+# See also:
+#  - https://docs.python.org/3/extending/building.html
+#  - https://packaging.python.org/tutorials/packaging-projects/
