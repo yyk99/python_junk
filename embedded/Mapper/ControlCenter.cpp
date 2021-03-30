@@ -5,6 +5,16 @@
 #include "ControlCenter.h"
 #include "Mapper.h"
 
+
+template<class T>
+void *duplicate_vector( T const *src, size_t s )
+{
+    T *dst = (T *)malloc( s * sizeof( T ) );
+    memcpy( dst, src, s * sizeof( T ) );
+
+    return dst;
+}
+
 ControlCenter::ControlCenter()
 {
 }
@@ -13,15 +23,25 @@ ControlCenter::~ControlCenter()
 {
 }
 
-std::string ControlCenter::CreateRaster(std::string const& filename)
+char *ControlCenter::CreateRaster(const char *filename)
 {
-    auto theRaster = new BasicRaster(128, 64, filename);
-    m_inventory.push_back(theRaster);
+    auto theRaster = new BasicRaster( 128, 64, filename );
+    m_inventory.push_back( theRaster );
 
-    return theRaster->id();
+    return strdup( theRaster->id().c_str() );
+} // end of function ControlCenter::CreateRaster
+
+list_t *ControlCenter::ListRasters() const
+{
+    list_t *lst = new list_t( (int)m_inventory.size(), duplicate_vector( m_inventory.data(), m_inventory.size() ) );
+
+    return lst;
 }
 
-std::vector<BasicRaster*> const& ControlCenter::ListRasters() const
+list_t::list_t
+    (
+    int s, void *d
+    )
+    : m_size(s), m_data(d)
 {
-    return m_inventory;
-}
+} // end of function list_t::list_t

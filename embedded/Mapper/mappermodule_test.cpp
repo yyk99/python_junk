@@ -71,22 +71,37 @@ dump_py_list( PyObject *list )
                 fwprintf( stderr, L"%s\n", re );
                 PyMem_Free( re );
             }
-            //Py_DECREF( ai );
         }
     }
 }
 
 TEST_F( MapperModuleF, t1 )
 {
-    //Py_Initialize();
+    int rc;
+    rc = PyRun_SimpleString( "import sys" );
+    ASSERT_EQ( rc, 0 );
+    rc = PyRun_SimpleString( "sys.path.append(\".\")" );
+    ASSERT_EQ( rc, 0 );
 
-    PyRun_SimpleString( "import sys" );
-    PyRun_SimpleString( "sys.path.append(\".\")" );
-
-    PyRun_SimpleString( "import mappermodule" );
-    PyRun_SimpleString( "print(dir(mappermodule))" );
+    rc = PyRun_SimpleString( "import mappermodule" );
+    ASSERT_EQ( rc, 0 );
+    rc = PyRun_SimpleString( "print(dir(mappermodule))" );
+    ASSERT_EQ( rc, 0 );
 }
 
+TEST_F( MapperModuleF, t1_1 )
+{
+    int rc;
+    //rc = PyRun_SimpleString( "import sys" );
+    //ASSERT_EQ( rc, 0 );
+    //rc = PyRun_SimpleString( "sys.path.append(\".\")" );
+    //ASSERT_EQ( rc, 0 );
+
+    rc = PyRun_SimpleString( "import mappermodule" );
+    ASSERT_EQ( rc, 0 );
+    rc = PyRun_SimpleString( "print(dir(mappermodule))" );
+    ASSERT_EQ( rc, 0 );
+}
 
 TEST_F( MapperModuleF, t2 )
 {

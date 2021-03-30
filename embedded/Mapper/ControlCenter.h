@@ -5,10 +5,18 @@
 #ifndef CONTROLCENTER_H
 #define CONTROLCENTER_H
 
-#include <string>
 #include <vector>
 
 class BasicRaster;
+
+struct list_t
+{
+    list_t( int s, void *d );
+    int m_size;
+    void *m_data;
+};
+
+
 class ControlCenter
 {
     std::vector<BasicRaster*> m_inventory;
@@ -18,8 +26,8 @@ public:
 
     virtual ~ControlCenter();
 
-    std::string CreateRaster(std::string const &filename);
-    std::vector<BasicRaster*> const& ListRasters() const;
+    char *CreateRaster(const char *filename);
+    list_t *ListRasters() const;
 };
 
 #endif
