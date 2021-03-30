@@ -28,7 +28,7 @@ public:
             << "Fatal error: cannot decode program name";
 
         /* Add a built-in module, before Py_Initialize */
-        ASSERT_NE( -1, PyImport_AppendInittab( "globalmapper", PyInit__mappermodule ) )
+        ASSERT_NE(PyImport_AppendInittab( "mappermodule", PyInit__mappermodule ), -1 )
             << "Error: could not extend in-built modules table";
 
         /* Pass argv[0] to the Python interpreter */
@@ -37,8 +37,6 @@ public:
         /* Initialize the Python interpreter.  Required.
            If this step fails, it will be a fatal error. */
         Py_Initialize();
-
-        PyImport_AppendInittab( "mappermodule", &PyInit__mappermodule );
 
 #if 0
         /* Optionally import the module; alternatively,
@@ -111,13 +109,14 @@ TEST_F( MapperModuleF, t3 )
 
     ASSERT_TRUE( pModule != NULL );
 
+#if 0
     auto locals = PyObject_Dir( pModule );
     ASSERT_TRUE( locals != NULL );
 
     fprintf( stderr, "type: %s\n", locals->ob_type->tp_name ); // list
     dump_py_list( locals );
-    //Py_DECREF( locals );
-
+    Py_DECREF( locals );
+#endif
     Py_DECREF( pModule );
 }
 
