@@ -4,9 +4,6 @@
 
 cmake_policy(SET CMP0086 NEW)
 
-find_package(SWIG 4.0 COMPONENTS python REQUIRED)
-include (UseSWIG)
-
 add_library(MapperLib STATIC
 	ControlCenter.cpp
 	ControlCenter.h
@@ -19,15 +16,18 @@ set_property(TARGET MapperApp PROPERTY FOLDER apps)
 
 # Configure the wrapper module
 
-# include dir for Mapper.h & ControlCenter.h
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+if (SWIG_FOUND)
+	# include dir for Mapper.h & ControlCenter.h
+	include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-set_property(SOURCE mappermodule.i PROPERTY CPLUSPLUS ON)
-set_property(SOURCE mappermodule.i PROPERTY SWIG_MODULE_NAME mappermodule)
-swig_add_library(mappermodule LANGUAGE python SOURCES mappermodule.i)
-target_link_libraries(mappermodule PRIVATE MapperLib)
-target_link_directories(mappermodule PRIVATE ${Python_LIBRARY_DIRS})
-target_link_libraries(mappermodule PRIVATE ${Python_LIBRARIES})
+	set_property(SOURCE mappermodule.i PROPERTY CPLUSPLUS ON)
+	set_property(SOURCE mappermodule.i PROPERTY SWIG_MODULE_NAME mappermodule)
+	swig_add_library(mappermodule LANGUAGE python SOURCES mappermodule.i)
+	target_link_libraries(mappermodule PRIVATE MapperLib)
+	target_link_directories(mappermodule PRIVATE ${Python_LIBRARY_DIRS})
+	target_link_libraries(mappermodule PRIVATE ${Python_LIBRARIES})
+
+endif()
 
 if (BUILD_TESTS)
 

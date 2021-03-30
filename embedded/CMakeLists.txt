@@ -11,11 +11,7 @@ set(Python_FIND_REGISTRY "NEVER")
 
 message (STATUS "Python_FIND_REGISTRY=${Python_FIND_REGISTRY}")
 
-find_package (Python COMPONENTS Interpreter Development)
-
-if (NOT Python_FOUND)
-	message(FATAL "Python not found")
-endif()
+find_package (Python COMPONENTS Interpreter Development REQUIRED)
 
 message(STATUS "Python_VERSION=${Python_VERSION}")
 message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
@@ -24,10 +20,13 @@ message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
 
 set(SWIG_EXECUTABLE "" CACHE FILEPATH "Swig executable")
 
-find_package(SWIG 4.0 COMPONENTS python REQUIRED)
+find_package(SWIG 4.0 COMPONENTS python )
 
 if(SWIG_FOUND)
-  message(STATUS "SWIG found: ${SWIG_EXECUTABLE}")
+    message(STATUS "SWIG found: ${SWIG_EXECUTABLE}")
+    include (UseSWIG)
+else()
+    message(STATUS "SWIG NOT found. Some projects will be unavailable")
 endif()
 
 # Configure ...
@@ -139,13 +138,13 @@ add_subdirectory(Mapper)
 #
 if (BUILD_TESTS)
 
-add_executable(test_GM globalmappermodule.cpp)
-set_property(TARGET test_GM PROPERTY FOLDER tests)
+    add_executable(test_GM globalmappermodule.cpp)
+    set_property(TARGET test_GM PROPERTY FOLDER tests)
 
-target_compile_definitions(test_GM PRIVATE -DGM_BUILD_TEST=1)
-target_link_directories(test_GM PRIVATE ${Python_LIBRARY_DIRS})
-target_link_libraries(test_GM PRIVATE ${Python_LIBRARIES})
-target_link_libraries(test_GM PRIVATE ${GTEST_BOTH_LIBS})
-add_test(test_GM test_GM)
+    target_compile_definitions(test_GM PRIVATE -DGM_BUILD_TEST=1)
+    target_link_directories(test_GM PRIVATE ${Python_LIBRARY_DIRS})
+    target_link_libraries(test_GM PRIVATE ${Python_LIBRARIES})
+    target_link_libraries(test_GM PRIVATE ${GTEST_BOTH_LIBS})
+    add_test(test_GM test_GM)
 
 endif(BUILD_TESTS)
