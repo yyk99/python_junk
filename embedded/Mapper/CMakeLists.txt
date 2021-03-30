@@ -3,11 +3,11 @@
 #
 
 add_library(MapperLib STATIC
-	ControlCenter.cpp
-	ControlCenter.h
-	Mapper.cpp 
-	Mapper.h
-	)
+    ControlCenter.cpp
+    ControlCenter.h
+    Mapper.cpp 
+    Mapper.h
+    )
 add_executable(MapperApp MapperMain.cpp)
 set_property(TARGET MapperApp PROPERTY FOLDER apps)
 

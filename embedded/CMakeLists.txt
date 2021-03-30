@@ -18,9 +18,12 @@ message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
 
 # SWIG
 
-set(SWIG_EXECUTABLE "" CACHE FILEPATH "Swig executable")
+# set(SWIG_EXECUTABLE "" CACHE FILEPATH "Swig executable")
 
-cmake_policy(SET CMP0086 NEW)
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL  "3.14") 
+    cmake_policy(SET CMP0086 NEW)
+endif()
+
 find_package(SWIG 3.0 COMPONENTS python )
 
 if(SWIG_FOUND)
