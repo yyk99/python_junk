@@ -20,7 +20,7 @@ message(STATUS "Python_LIBRARIES=${Python_LIBRARIES}")
 
 set(SWIG_EXECUTABLE "" CACHE FILEPATH "Swig executable")
 
-find_package(SWIG 4.0 COMPONENTS python )
+find_package(SWIG 3.0 COMPONENTS python )
 
 if(SWIG_FOUND)
     message(STATUS "SWIG found: ${SWIG_EXECUTABLE}")
