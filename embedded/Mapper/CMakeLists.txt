@@ -2,14 +2,16 @@
 #
 #
 
-cmake_policy(SET CMP0086 NEW)
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL  "3.14") 
+    cmake_policy(SET CMP0086 NEW)
+endif()
 
 add_library(MapperLib STATIC
-	ControlCenter.cpp
-	ControlCenter.h
-	Mapper.cpp 
-	Mapper.h
-	)
+    ControlCenter.cpp
+    ControlCenter.h
+    Mapper.cpp 
+    Mapper.h
+    )
 add_executable(MapperApp MapperMain.cpp)
 set_property(TARGET MapperApp PROPERTY FOLDER apps)
 
