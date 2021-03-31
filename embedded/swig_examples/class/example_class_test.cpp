@@ -6,7 +6,15 @@
 
 #include <gtest/gtest.h>
 
-PyMODINIT_FUNC PyInit__class_example( void );
+
+//
+// This is the test for python module with proxy classes.
+// - The proxy classes are in a python script "example.py"
+// - The C++ code (interface) is in a loadable module, it is OS dependent.
+//
+
+// swig -interface option was used to force this name:
+PyMODINIT_FUNC PyInit__example( void );
 
 class ClassExampleModuleF : public ::testing::Test
 {
@@ -28,7 +36,7 @@ public:
             << "Fatal error: cannot decode program name";
 
         /* Add a built-in module, before Py_Initialize */
-        ASSERT_NE(PyImport_AppendInittab( "_class_example", PyInit__class_example ), -1 )
+        ASSERT_NE(PyImport_AppendInittab( "_example", PyInit__example ), -1 )
             << "Error: could not extend in-built modules table";
 
         /* Pass argv[0] to the Python interpreter */

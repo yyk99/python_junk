@@ -8,6 +8,7 @@ set_property(SOURCE example.i PROPERTY CPLUSPLUS ON)
 set_property(SOURCE example.i PROPERTY SWIG_MODULE_NAME example)
 
 set (_target class_example)
+list(APPEND SWIG_MODULE_${_target}_EXTRA_FLAGS "-interface;_example")
 
 swig_add_library(${_target} 
 	TYPE SHARED
@@ -18,6 +19,8 @@ swig_add_library(${_target}
 		example.cxx 
 		example.h
 )
+
+message(STATUS "SWIG_MODULE_<name>_REAL_NAME = ${SWIG_MODULE_class_example_REAL_NAME}")
 
 target_link_directories(${_target} PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(${_target} PRIVATE ${Python_LIBRARIES})
