@@ -6,17 +6,17 @@
 
 #include <gtest/gtest.h>
 
-PyMODINIT_FUNC PyInit__class_example( void );
+PyMODINIT_FUNC PyInit_example( void );
 
-class ClassExampleModuleF : public ::testing::Test
+class SimpleExampleModuleF : public ::testing::Test
 {
     wchar_t *program;
 public:
 
-    ClassExampleModuleF() : program{}
+    SimpleExampleModuleF() : program{}
     {}
 
-    ~ClassExampleModuleF() override
+    ~SimpleExampleModuleF() override
     {}
 
     void SetUp() override
@@ -28,7 +28,7 @@ public:
             << "Fatal error: cannot decode program name";
 
         /* Add a built-in module, before Py_Initialize */
-        ASSERT_NE(PyImport_AppendInittab( "_class_example", PyInit__class_example ), -1 )
+        ASSERT_NE(PyImport_AppendInittab( "example", PyInit_example), -1 )
             << "Error: could not extend in-built modules table";
 
         /* Pass argv[0] to the Python interpreter */
@@ -75,44 +75,35 @@ dump_py_list( PyObject *list )
     }
 }
 
-TEST_F( ClassExampleModuleF, t1 )
+TEST_F( SimpleExampleModuleF, t1 )
 {
     int rc;
     rc = PyRun_SimpleString( "import sys" );
     ASSERT_EQ( rc, 0 );
-
-    rc = PyRun_SimpleString( "sys.path.append('.')" );
+    rc = PyRun_SimpleString( "sys.path.append(\".\")" );
     ASSERT_EQ( rc, 0 );
-#if _WIN32
-    rc = PyRun_SimpleString( "sys.path.append('..')" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "sys.path.append('Debug')" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "sys.path.append('Release')" );
-    ASSERT_EQ( rc, 0 );
-#endif
 
     rc = PyRun_SimpleString( "import example" );
     ASSERT_EQ( rc, 0 );
     rc = PyRun_SimpleString( "print(dir(example))" );
     ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "print(example.__file__)" );
-    ASSERT_EQ( rc, 0 );
-
 }
 
-//
-// Cannot import example
-//
-TEST_F( ClassExampleModuleF, t1_1 )
+TEST_F( SimpleExampleModuleF, t1_1 )
 {
     int rc;
+    //rc = PyRun_SimpleString( "import sys" );
+    //ASSERT_EQ( rc, 0 );
+    //rc = PyRun_SimpleString( "sys.path.append(\".\")" );
+    //ASSERT_EQ( rc, 0 );
 
     rc = PyRun_SimpleString( "import example" );
-    ASSERT_EQ( rc, -1 ); // expected FAILED
+    ASSERT_EQ( rc, 0 );
+    rc = PyRun_SimpleString( "print(dir(example))" );
+    ASSERT_EQ( rc, 0 );
 }
 
-TEST_F( ClassExampleModuleF, t2 )
+TEST_F( SimpleExampleModuleF, t2 )
 {
     // programmatic dir()
     // it's not going to work.
@@ -125,23 +116,8 @@ TEST_F( ClassExampleModuleF, t2 )
     PyErr_Print();
 }
 
-TEST_F( ClassExampleModuleF, t3 )
+TEST_F( SimpleExampleModuleF, t3 )
 {
-    int rc;
-    rc = PyRun_SimpleString( "import sys" );
-    ASSERT_EQ( rc, 0 );
-
-    rc = PyRun_SimpleString( "sys.path.append('.')" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "sys.path.append('..')" );
-    ASSERT_EQ( rc, 0 );
-#if _WIN32
-    rc = PyRun_SimpleString( "sys.path.append('Debug')" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "sys.path.append('Release')" );
-    ASSERT_EQ( rc, 0 );
-#endif
-
     auto pName = PyUnicode_DecodeFSDefault( "example" );
     auto pModule = PyImport_Import( pName );
     Py_DECREF( pName );
@@ -158,35 +134,24 @@ TEST_F( ClassExampleModuleF, t3 )
     Py_DECREF( pModule );
 }
 
-TEST_F( ClassExampleModuleF, runme_py )
-{
-    FILE *fd = fopen( "runme.py", "rb" );
-    if( fd == 0 )
-        fd = fopen( "../runme.py", "rb" );
-    ASSERT_TRUE( fd != NULL );
 
-    int rc;
-    rc = PyRun_SimpleString( "import sys" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "sys.path.append('..')" );
-    ASSERT_EQ( rc, 0 );
+//TEST_F( SimpleExampleModuleF, t3 )
+//{
+//    auto pName = PyUnicode_DecodeFSDefault( "example" );
+//    auto pModule = PyImport_Import( pName );
+//    Py_DECREF( pName );
+//
+//    ASSERT_TRUE( pModule != NULL );
+//
+//#if 0
+//    auto locals = PyObject_Dir( pModule );
+//    ASSERT_TRUE( locals != NULL );
+//
+//    fprintf( stderr, "type: %s\n", locals->ob_type->tp_name ); // list
+//    dump_py_list( locals );
+//    Py_DECREF( locals );
+//#endif
+//    Py_DECREF( pModule );
+//}
 
-    rc = PyRun_SimpleFile(fd, "runme.py" );
-    fclose( fd );
-
-    ASSERT_EQ( rc, 0 );
-}
-
-TEST_F( ClassExampleModuleF, bs_py )
-{
-    FILE *fd = fopen( "bs.py", "wb" );
-    ASSERT_TRUE( fd != NULL );
-    fputs( "import passatizhy\n", fd );
-    fputs( "print('Cannot be here!')\n", fd );
-    fclose( fd );
-
-    fd = fopen( "bs.py", "rb" );
-    int rc = PyRun_SimpleFile( fd, "bs.py" );
-    ASSERT_EQ( rc, -1 ) << "Expected to FAIL\n";
-}
 // end of file

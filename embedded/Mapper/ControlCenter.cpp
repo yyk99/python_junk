@@ -1,6 +1,7 @@
 //
 //
 //
+#define _CRT_NONSTDC_NO_WARNINGS
 
 #include "ControlCenter.h"
 #include "Mapper.h"
