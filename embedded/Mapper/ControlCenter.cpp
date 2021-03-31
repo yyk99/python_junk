@@ -5,6 +5,7 @@
 #include "ControlCenter.h"
 #include "Mapper.h"
 
+#include <string.h>
 
 template<class T>
 void *duplicate_vector( T const *src, size_t s )
