@@ -138,6 +138,8 @@ set_property(TARGET prog_GM PROPERTY FOLDER apps)
 
 add_subdirectory(Mapper)
 
+add_subdirectory(swig_examples)
+
 #
 # Configure tests
 #
