@@ -168,6 +168,8 @@ TEST_F( ClassExampleModuleF, runme_py )
     int rc;
     rc = PyRun_SimpleString( "import sys" );
     ASSERT_EQ( rc, 0 );
+    rc = PyRun_SimpleString( "sys.path.append('.')" );
+    ASSERT_EQ( rc, 0 );
     rc = PyRun_SimpleString( "sys.path.append('..')" );
     ASSERT_EQ( rc, 0 );
 

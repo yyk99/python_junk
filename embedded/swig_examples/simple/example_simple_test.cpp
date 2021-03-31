@@ -89,17 +89,12 @@ TEST_F( SimpleExampleModuleF, t1 )
     ASSERT_EQ( rc, 0 );
 }
 
+// FAIL
 TEST_F( SimpleExampleModuleF, t1_1 )
 {
     int rc;
-    //rc = PyRun_SimpleString( "import sys" );
-    //ASSERT_EQ( rc, 0 );
-    //rc = PyRun_SimpleString( "sys.path.append(\".\")" );
-    //ASSERT_EQ( rc, 0 );
 
     rc = PyRun_SimpleString( "import example" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "print(dir(example))" );
     ASSERT_EQ( rc, 0 );
 }
 

@@ -68,21 +68,21 @@ if(BUILD_TESTS)
     set(GTEST_ROOT ${GTEST_SOURCE_DIR})
     set(GTEST_INCLUDE_DIR ${GTEST_ROOT}/include)
     if(WIN32)
-      set(GTEST_BOTH_LIBS
-        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/gtest_main$<$<CONFIG:Debug>:d>.lib
-        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/gtest$<$<CONFIG:Debug>:d>.lib
+        set(GTEST_BOTH_LIBS
+            ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/gtest_main$<$<CONFIG:Debug>:d>.lib
+            ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/gtest$<$<CONFIG:Debug>:d>.lib
         )
     else()
-      set(GTEST_BOTH_LIBS
-        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/libgtest_main.a
-        ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/libgtest.a
-        -pthread
+        set(GTEST_BOTH_LIBS
+            ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/libgtest_main.a
+            ${CMAKE_BINARY_DIR}/googletest-build/googletest/$<CONFIG>/libgtest.a
+            -pthread
         )
     endif()      
 
     # MS VS2012 needs this to compile tupe templates
-    add_definitions(-D_VARIADIC_MAX=10)
-    include_directories(${GTEST_INCLUDE_DIR} ${GTEST_ROOT})
+    # add_definitions(-D_VARIADIC_MAX=10)
+    #include_directories(${GTEST_INCLUDE_DIR} ${GTEST_ROOT})
 endif(BUILD_TESTS)
 
 #
@@ -149,6 +149,7 @@ if (BUILD_TESTS)
     set_property(TARGET test_GM PROPERTY FOLDER tests)
 
     target_compile_definitions(test_GM PRIVATE -DGM_BUILD_TEST=1)
+    target_include_directories(test_GM PRIVATE ${GTEST_INCLUDE_DIR} ${GTEST_ROOT})
     target_link_directories(test_GM PRIVATE ${Python_LIBRARY_DIRS})
     target_link_libraries(test_GM PRIVATE ${Python_LIBRARIES})
     target_link_libraries(test_GM PRIVATE ${GTEST_BOTH_LIBS})
