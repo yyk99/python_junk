@@ -20,7 +20,7 @@ swig_add_library(${_target}
 		example.h
 )
 
-message(STATUS "SWIG_MODULE_<name>_REAL_NAME = ${SWIG_MODULE_class_example_REAL_NAME}")
+# message(STATUS "SWIG_MODULE_<name>_REAL_NAME = ${SWIG_MODULE_class_example_REAL_NAME}")
 
 target_link_directories(${_target} PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(${_target} PRIVATE ${Python_LIBRARIES})
@@ -30,7 +30,7 @@ set_property(TARGET ${_target} PROPERTY FOLDER swig_examples)
 if (BUILD_TESTS)
 	configure_file(runme.py runme.py)
 	
-	add_executable(test_example_class example_class_test.cpp runme.py)
+	add_executable(test_example_class example_class_test.cpp runme.py ../CMakeLists.txt)
 	#target_compile_definitions(test_mappermodule PRIVATE -DMAPPER_BUILD_TEST=1)
 	target_include_directories(test_example_class PRIVATE ${GTEST_INCLUDE_DIR} ${GTEST_ROOT})
 	target_link_directories(test_example_class PRIVATE ${Python_LIBRARY_DIRS})
@@ -39,4 +39,6 @@ if (BUILD_TESTS)
 	target_link_libraries(test_example_class PRIVATE ${_target})
 	add_test(test_example_class test_example_class)
 	set_property(TARGET test_example_class PROPERTY FOLDER tests)
+
+	source_group(".." FILES ../CMakeLists.txt)
 endif()

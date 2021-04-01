@@ -77,18 +77,41 @@ dump_py_list( PyObject *list )
 
 TEST_F( SimpleExampleModuleF, t1 )
 {
-    int rc;
-    rc = PyRun_SimpleString( "import sys" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "sys.path.append(\".\")" );
-    ASSERT_EQ( rc, 0 );
+    {
+        int rc;
+        rc = PyRun_SimpleString("import sys");
+        ASSERT_EQ(rc, 0);
+        rc = PyRun_SimpleString("sys.path.append(\".\")");
+        ASSERT_EQ(rc, 0);
 
-    rc = PyRun_SimpleString( "import example" );
-    ASSERT_EQ( rc, 0 );
-    rc = PyRun_SimpleString( "print(dir(example))" );
-    ASSERT_EQ( rc, 0 );
+        rc = PyRun_SimpleString("import example");
+        ASSERT_EQ(rc, 0);
+        rc = PyRun_SimpleString("print(dir(example))");
+        ASSERT_EQ(rc, 0);
+    }
+
+    {
+        FILE* fd = fopen("runme.py", "rb");
+        if (fd == 0)
+            fd = fopen("../runme.py", "rb");
+        ASSERT_TRUE(fd != NULL);
+
+        int rc;
+        rc = PyRun_SimpleString("import sys");
+        ASSERT_EQ(rc, 0);
+        rc = PyRun_SimpleString("sys.path.append('.')");
+        ASSERT_EQ(rc, 0);
+        rc = PyRun_SimpleString("sys.path.append('..')");
+        ASSERT_EQ(rc, 0);
+
+        rc = PyRun_SimpleFile(fd, "runme.py");
+        fclose(fd);
+
+        ASSERT_EQ(rc, 0);
+    }
 }
 
+#if 0
 // FAIL
 TEST_F( SimpleExampleModuleF, t1_1 )
 {
@@ -128,25 +151,7 @@ TEST_F( SimpleExampleModuleF, t3 )
 
     Py_DECREF( pModule );
 }
+#endif
 
-
-//TEST_F( SimpleExampleModuleF, t3 )
-//{
-//    auto pName = PyUnicode_DecodeFSDefault( "example" );
-//    auto pModule = PyImport_Import( pName );
-//    Py_DECREF( pName );
-//
-//    ASSERT_TRUE( pModule != NULL );
-//
-//#if 0
-//    auto locals = PyObject_Dir( pModule );
-//    ASSERT_TRUE( locals != NULL );
-//
-//    fprintf( stderr, "type: %s\n", locals->ob_type->tp_name ); // list
-//    dump_py_list( locals );
-//    Py_DECREF( locals );
-//#endif
-//    Py_DECREF( pModule );
-//}
 
 // end of file
