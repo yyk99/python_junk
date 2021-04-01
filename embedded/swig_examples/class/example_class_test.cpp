@@ -1,3 +1,4 @@
+//
 // https://docs.python.org/3/extending/embedding.html#pure-embedding
 //
 
@@ -5,7 +6,6 @@
 #include <Python.h>
 
 #include <gtest/gtest.h>
-
 
 //
 // This is the test for python module with proxy classes.

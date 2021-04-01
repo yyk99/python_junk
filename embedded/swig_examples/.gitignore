@@ -5,9 +5,9 @@ contract/
 docstrings/
 doxygen/
 enum/
-exception/
-exceptproxy/
-extend/
+#exception/
+#exceptproxy/
+#extend/
 funcptr/
 funcptr2/
 functor/
