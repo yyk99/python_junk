@@ -15,8 +15,17 @@ macro(add_swig_test name )
         target_link_libraries(${_t} PRIVATE ${_target})
         add_test(${_t} ${_t})
         set_property(TARGET ${_t} PROPERTY FOLDER tests)
+
+        source_group(".." FILES ../CMakeLists.txt)
 endmacro(add_swig_test)
 
 add_subdirectory(constants)
 add_subdirectory(class)
 add_subdirectory(simple)
+add_subdirectory(std_map)
+add_subdirectory(std_vector)
+add_subdirectory(template)
+add_subdirectory(varargs)
+add_subdirectory(variables)
+
+# end of file

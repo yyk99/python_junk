@@ -1,4 +1,5 @@
-// https://docs.python.org/3/extending/embedding.html#pure-embedding
+//
+//
 //
 
 #define PY_SSIZE_T_CLEAN
@@ -6,17 +7,25 @@
 
 #include <gtest/gtest.h>
 
-PyMODINIT_FUNC PyInit__example( void );
+#if NO_SWIG_PROXY
+#   define PY_INIT PyInit_example
+#   define MODULE_NAME "example"
+#else
+#   define PY_INIT PyInit__example
+#   define MODULE_NAME "_example"
+#endif
 
-class ConstantsExampleModuleF : public ::testing::Test
+PyMODINIT_FUNC PY_INIT(void);
+
+class SwigExampleModuleF : public ::testing::Test
 {
     wchar_t *program;
 public:
 
-    ConstantsExampleModuleF() : program{}
+    SwigExampleModuleF() : program{}
     {}
 
-    ~ConstantsExampleModuleF() override
+    ~SwigExampleModuleF() override
     {}
 
     void SetUp() override
@@ -28,7 +37,7 @@ public:
             << "Fatal error: cannot decode program name";
 
         /* Add a built-in module, before Py_Initialize */
-        ASSERT_NE(PyImport_AppendInittab( "_example", PyInit__example), -1 )
+        ASSERT_NE(PyImport_AppendInittab(MODULE_NAME, PY_INIT), -1 )
             << "Error: could not extend in-built modules table";
 
         /* Pass argv[0] to the Python interpreter */
@@ -37,16 +46,6 @@ public:
         /* Initialize the Python interpreter.  Required.
            If this step fails, it will be a fatal error. */
         Py_Initialize();
-
-#if 0
-        /* Optionally import the module; alternatively,
-           import can be deferred until the embedded script
-           imports it. */
-        PyObject *pmodule = PyImport_ImportModule( "example" );
-        ASSERT_TRUE( pmodule != 0 )
-            // PyErr_Print();
-            << "Error: could not import module 'example'\n";
-#endif
     }
 
     void TearDown() override
@@ -57,20 +56,18 @@ public:
     }
 };
 
-TEST_F( ConstantsExampleModuleF, t1 )
+TEST_F(SwigExampleModuleF, runme_py)
 {
     {
         int rc;
         rc = PyRun_SimpleString("import sys");
         ASSERT_EQ(rc, 0);
-        rc = PyRun_SimpleString("sys.path.append('.')");
-        ASSERT_EQ(rc, 0);
-        rc = PyRun_SimpleString("sys.path.append('..')");
+        rc = PyRun_SimpleString("sys.path.append(\".\")");
         ASSERT_EQ(rc, 0);
 
-        rc = PyRun_SimpleString("import example");
+        rc = PyRun_SimpleString("import " MODULE_NAME);
         ASSERT_EQ(rc, 0);
-        rc = PyRun_SimpleString("print(dir(example))");
+        rc = PyRun_SimpleString("print(dir(" MODULE_NAME "))");
         ASSERT_EQ(rc, 0);
     }
 

@@ -22,8 +22,8 @@ pointer/
 reference/
 #simple/
 smartptr/
-std_map/
-std_vector/
-template/
-varargs/
-variables/
+#std_map/
+#std_vector/
+#template/
+#varargs/
+#variables/
