@@ -1,6 +1,6 @@
 callback/
-# class/
-constants/
+#class/
+#constants/
 contract/
 docstrings/
 doxygen/
