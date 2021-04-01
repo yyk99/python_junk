@@ -28,15 +28,5 @@ set_property(TARGET ${_target} PROPERTY FOLDER swig_examples)
 
 if (BUILD_TESTS)
 	configure_file(runme.py runme.py)
-
-	add_executable(test_example_constants example_constants_test.cpp runme.py ../CMakeLists.txt)
-	target_include_directories(test_example_constants PRIVATE ${GTEST_INCLUDE_DIR} ${GTEST_ROOT})
-	target_link_directories(test_example_constants PRIVATE ${Python_LIBRARY_DIRS})
-	target_link_libraries(test_example_constants PRIVATE ${Python_LIBRARIES})
-	target_link_libraries(test_example_constants PRIVATE ${GTEST_BOTH_LIBS})
-	target_link_libraries(test_example_constants PRIVATE ${_target})
-	add_test(test_example_constants test_example_constants)
-	set_property(TARGET test_example_constants PROPERTY FOLDER tests)
-
-	source_group(".." FILES ../CMakeLists.txt)
+	add_swig_test(${_target})
 endif()
