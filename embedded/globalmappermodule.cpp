@@ -537,6 +537,11 @@ public:
     void TearDown() override
     {
         PyMem_RawFree(program);
+#if 0
+        // That fails!
+        int ok = Py_FinalizeEx();
+        EXPECT_NE( ok, -1 );
+#endif
     }
 };
 
