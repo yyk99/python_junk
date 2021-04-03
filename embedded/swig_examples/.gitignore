@@ -4,7 +4,7 @@ callback/
 contract/
 docstrings/
 doxygen/
-enum/
+#enum/
 #exception/
 #exceptproxy/
 #extend/
@@ -18,7 +18,7 @@ libffi/
 multimap/
 operator/
 performance/
-pointer/
+#pointer/
 reference/
 #simple/
 smartptr/
