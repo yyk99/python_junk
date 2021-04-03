@@ -11,3 +11,11 @@ class Foo {
 
 void enum_test(color c, Foo::speed s);
 
+enum ImportFlags {
+    FLAG_0 = 1,
+    FLAG_1 = 2,
+    FLAG_2 = 4
+};
+
+int load_image(char const* filename, ImportFlags s);
+

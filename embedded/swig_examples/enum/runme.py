@@ -28,3 +28,12 @@ f = example.Foo()
 f.enum_test(example.Foo.IMPULSE)
 f.enum_test(example.Foo.WARP)
 f.enum_test(example.Foo.LUDICROUS)
+
+print("\nTesting ...")
+print("*** ImportFlags ***")
+print("    FLAG_0  = %s" % example.FLAG_0)
+print("    FLAG_0  = %s" % example.FLAG_1)
+print("    FLAG_0  = %s" % example.FLAG_2)
+
+ok = example.load_image('bamboo.tif', example.FLAG_0 | example.FLAG_2)
+print("example.load_image returns: %d" % ok)
