@@ -2,7 +2,13 @@
 
 import example
 
+s = example.smap({ 'a' : 'b', 'c': 'e'})
+print(list(s.keys()))
+
 pmap = example.pymap()
+
+print(type(pmap))
+
 pmap["hi"] = 1
 pmap["hello"] = 2
 

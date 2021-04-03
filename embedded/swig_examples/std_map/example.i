@@ -14,6 +14,8 @@ namespace std {
   /* remember to instantiate the key,value pair! */
   %template(DoubleMap) map<std::string,double>;
   %template() map<std::string,int>;
+  %template(smap) std::map<std::string, std::string>;
+  %template() std::pair<std::string, std::string>;
 }
 
 /* Let's just grab the original header file here */
@@ -25,3 +27,5 @@ namespace std {
 
 %template() std::pair<swig::SwigPtr_PyObject, swig::SwigPtr_PyObject>;
 %template(pymap) std::map<swig::SwigPtr_PyObject, swig::SwigPtr_PyObject>;
+
+
