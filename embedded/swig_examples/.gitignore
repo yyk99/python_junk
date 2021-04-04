@@ -13,10 +13,10 @@ doxygen/
 #functor/
 #import/
 import_packages/
-import_template/
+#import_template/
 libffi/
-multimap/
-operator/
+#multimap/
+#operator/
 performance/
 #pointer/
 #reference/
