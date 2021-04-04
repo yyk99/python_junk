@@ -56,7 +56,7 @@ set_property(TARGET ${_target} PROPERTY FOLDER swig_examples/import)
 set (_target spam)
 set_property(SOURCE ${_target}.i PROPERTY CPLUSPLUS ON)
 set_property(SOURCE ${_target}.i PROPERTY SWIG_MODULE_NAME ${_target})
-list(APPEND SWIG_MODULE_${_target}_EXTRA_FLAGS "-interface;_example")
+#list(APPEND SWIG_MODULE_${_target}_EXTRA_FLAGS "-interface;_example")
 swig_add_library(${_target}
 	TYPE SHARED
 	LANGUAGE python

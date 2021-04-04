@@ -9,6 +9,10 @@ import foo
 import bar
 import spam
 
+# from yyk
+print('spam.__file__ = %s' % spam.__file__)
+
+
 def write_flush(s):
     # Python 2/3 compatible write and flush
     sys.stdout.write(s)
