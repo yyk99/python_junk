@@ -2,7 +2,7 @@
 #class/
 #constants/
 #contract/
-#docstrings/
+docstrings/
 doxygen/
 #enum/
 #exception/
@@ -19,9 +19,9 @@ multimap/
 operator/
 performance/
 #pointer/
-reference/
+#reference/
 #simple/
-smartptr/
+#smartptr/
 #std_map/
 #std_vector/
 #template/

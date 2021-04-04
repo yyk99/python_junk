@@ -7,7 +7,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 set_property(SOURCE example.i PROPERTY CPLUSPLUS ON)
 set_property(SOURCE example.i PROPERTY SWIG_MODULE_NAME example)
 
-set (_target docstrings)
+set (_target reference)
 list(APPEND SWIG_MODULE_${_target}_EXTRA_FLAGS "-interface;_example")
 
 swig_add_library(${_target}
@@ -20,8 +20,6 @@ swig_add_library(${_target}
 		example.h
 		../CMakeLists.txt
 )
-
-# message(STATUS "SWIG_MODULE_<name>_REAL_NAME = ${SWIG_MODULE_class_example_REAL_NAME}")
 
 target_link_directories(${_target} PRIVATE ${Python_LIBRARY_DIRS})
 target_link_libraries(${_target} PRIVATE ${Python_LIBRARIES})
