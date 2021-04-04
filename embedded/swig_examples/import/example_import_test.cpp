@@ -6,6 +6,7 @@
 #include <Python.h>
 
 #include <gtest/gtest.h>
+#include <malloc.h>
 
 #if NO_SWIG_PROXY
 #   define PY_INIT PyInit_example
@@ -82,6 +83,7 @@ TEST_F(SwigExampleModuleF, runme_py)
     }
 
     {
+        std::cout << "CWD=" << getcwd( (char *)alloca( 256 ), 256 ) << std::endl;
         FILE* fd = fopen("runme.py", "rb");
         if (fd == 0)
             fd = fopen("../runme.py", "rb");

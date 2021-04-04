@@ -47,6 +47,6 @@ void enum_test(color c, Foo::speed s) {
 
 int load_image(char const* filename, ImportFlags mask)
 {
-    printf("filename: %s, %zx\n", filename, (int)mask);
+    printf("filename: %s, 0x%x\n", filename, (int)mask);
     return 0;
 }
