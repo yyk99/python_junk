@@ -21,6 +21,7 @@ endmacro(add_swig_test)
 
 add_subdirectory(callback)
 add_subdirectory(class)
+add_subdirectory(class2)
 add_subdirectory(constants)
 add_subdirectory(contract)
 add_subdirectory(docstrings)
