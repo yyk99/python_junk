@@ -189,4 +189,39 @@ TEST_F( ClassExampleModuleF, bs_py )
     int rc = PyRun_SimpleFile( fd, "bs.py" );
     ASSERT_EQ( rc, -1 ) << "Expected to FAIL\n";
 }
+
+TEST_F(ClassExampleModuleF, t4)
+{
+    int rc;
+    rc = PyRun_SimpleString("import sys");
+    ASSERT_EQ(rc, 0);
+
+    rc = PyRun_SimpleString("sys.path.append('.')");
+    ASSERT_EQ(rc, 0);
+#if _WIN32
+    rc = PyRun_SimpleString("sys.path.append('..')");
+    ASSERT_EQ(rc, 0);
+    rc = PyRun_SimpleString("sys.path.append('Debug')");
+    ASSERT_EQ(rc, 0);
+    rc = PyRun_SimpleString("sys.path.append('Release')");
+    ASSERT_EQ(rc, 0);
+#endif
+
+    rc = PyRun_SimpleString("import example as ex");
+    ASSERT_EQ(rc, 0);
+    rc = PyRun_SimpleString("print(dir(ex))");
+    ASSERT_EQ(rc, 0);
+    rc = PyRun_SimpleString("print(ex.__file__)");
+    ASSERT_EQ(rc, 0);
+
+    rc = PyRun_SimpleString(
+        "cc = ex.ControlCenter()\n"
+        "si = cc.getInfo('shape_42')\n"
+        "print(si)\n"
+        "print('dir(si):\\n', dir(si))\n"
+    );
+    ASSERT_EQ(rc, 0);
+
+}
+
 // end of file

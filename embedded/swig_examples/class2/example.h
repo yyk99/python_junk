@@ -34,3 +34,32 @@ public:
     virtual double area();
     virtual double perimeter();
 };
+
+struct Point
+{
+    double x, y;
+};
+
+struct Border
+{
+    Point lu; // left-upper corner
+    Point rb; // right-bottom corner
+};
+
+struct ShapeInfo {
+    char * title;
+    Border border;
+};
+
+extern "C" char* strdup(const char* s);
+
+class ControlCenter {
+public:
+    ShapeInfo* getInfo(const char* id)
+    {
+        auto si = new ShapeInfo{ strdup(id), Border{Point{0,0}, Point{100,200}} };
+
+        return si;
+    }
+};
+
