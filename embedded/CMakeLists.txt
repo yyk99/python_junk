@@ -86,6 +86,13 @@ if(BUILD_TESTS)
 endif(BUILD_TESTS)
 
 
+macro (add_app name src)
+    add_executable(${name} ${src})
+#    target_link_directories(${name} PRIVATE ${Python_LIBRARY_DIRS})
+#    target_link_libraries(${name} PRIVATE ${Python_LIBRARIES})
+    set_property(TARGET ${name} PROPERTY FOLDER apps)
+endmacro(add_app)
+
 macro (add_py_app name src)
     add_executable(${name} ${src})
     target_link_directories(${name} PRIVATE ${Python_LIBRARY_DIRS})
@@ -126,6 +133,7 @@ target_compile_definitions(prog_xx PRIVATE -DXX_BUILD_TEST=1)
 add_py_app(prog_GM globalmappermodule.cpp)
 target_compile_definitions(prog_GM PRIVATE -DGM_BUILD_EMBEDDED=1)
 
+add_app(time_parse time_parse.cpp)
 
 add_subdirectory(Mapper)
 
