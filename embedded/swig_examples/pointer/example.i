@@ -5,6 +5,7 @@
 extern void add(int *, int *, int *);
 extern void sub(int *, int *, int *);
 extern int divide(int, int, int *);
+extern int count_doubles(double *str, int len, double x);
 %}
 
 /* This example illustrates a couple of different techniques
@@ -30,7 +31,8 @@ extern int divide(int n, int d, int *r);
 %{
 void foo(double x[10]);
 void bar(double a[4], double b[8]);
-double summer(double *a, int n);
+double summer(double *data, int size);
+int parity(char *data, int size, int initial);
 %}
 
 
@@ -57,6 +59,36 @@ static int convert_darray(PyObject *input, double *ptr, int size) {
   }
   return 1;
 }
+
+static double *
+to_double_vector(PyObject *input, int *size)
+{
+    if (!PySequence_Check(input)) {
+        PyErr_SetString(PyExc_TypeError, "Expecting a sequence");
+        return NULL;
+    }
+
+    *size = PyObject_Length(input);
+    double* ptr = (double*)malloc(*size);
+    if (!ptr) {
+        PyErr_SetString(PyExc_ValueError, "Cannot allocate data vector");
+        return NULL;
+    }
+
+    for (int i = 0; i < *size; ++i)
+    {
+        PyObject* o = PySequence_GetItem(input, i);
+        if (!PyFloat_Check(o)) {
+            Py_XDECREF(o);
+            PyErr_SetString(PyExc_ValueError, "Expecting a sequence of floats");
+            return NULL;
+        }
+        ptr[i] = PyFloat_AsDouble(o);
+        Py_DECREF(o);
+    }
+
+    return ptr;
+}
 %}
 
 %typemap(in) double [ANY](double temp[$1_dim0]) {
@@ -66,11 +98,23 @@ static int convert_darray(PyObject *input, double *ptr, int size) {
    $1 = &temp[0];
 }
 
-%include "carrays.i"
-%array_class(double, doubleArr);
+%include "cdata.i"
+%include "cstring.i"
+//%cdata (double)
 
+%typemap(in) (double *data, int size) {
+  double *tmp = to_double_vector($input, & $2);
+  if(!tmp)
+    return NULL;
+  $1 = tmp;
+}
+
+int count_doubles(double *str, int len, double x);
 
 extern void foo(double x[10]);
 extern void bar(double a[4], double b[8]);
-extern double summer(double *a, int n);
+double summer(double *data, int size);
 
+%apply (char *STRING, int LENGTH) { (char *data, int size) };
+// ...
+int parity(char *data, int size, int initial);

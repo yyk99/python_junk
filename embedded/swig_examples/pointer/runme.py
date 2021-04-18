@@ -45,12 +45,16 @@ print("     42/37 = %d remainder %d" % (q, r))
 # extern void bar(double a[4], double b[8]);
 
 x = [i * 1.0 for i in range(10)]
-print(x)
+print("x:", x)
 example.foo(x)
 
 example.bar([i * 2.0 for i in range(4)], [i * 0.1 for i in range(8)])
 
-a = example.doubleArr(10000000)         # Array of 10-million integers
-for i in range(10000):        # Set some values
-	a[i] = i * 0.5
-print("example.summer(a, 10000) = %f" % example.summer(a, 10000))
+# 
+example.parity("e\x09ffss\x00\x00\x01\nx", 0)
+
+
+print("example.summer(x) = %f" % example.summer(x))
+print("expected: %f" % sum(x))
+
+# end of file

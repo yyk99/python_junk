@@ -46,3 +46,15 @@ double summer(double a[], int n)
 
     return s;
 }
+
+int parity(char* data, int size, int initial)
+{
+    printf("parity(data, %d, %d)\n", size, initial);
+
+    return 42;
+}
+
+int count_doubles(double* str, int len, double x)
+{
+    return 0;
+}
