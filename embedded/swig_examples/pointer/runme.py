@@ -53,8 +53,9 @@ example.bar([i * 2.0 for i in range(4)], [i * 0.1 for i in range(8)])
 # 
 example.parity("e\x09ffss\x00\x00\x01\nx", 0)
 
-
 print("example.summer(x) = %f" % example.summer(x))
 print("expected: %f" % sum(x))
 
+
+print("cnt: ", example.count_chars(b"1a2a3a", 'a'))
 # end of file

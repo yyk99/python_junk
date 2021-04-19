@@ -6,6 +6,7 @@ extern void add(int *, int *, int *);
 extern void sub(int *, int *, int *);
 extern int divide(int, int, int *);
 extern int count_doubles(double *str, int len, double x);
+int count_chars(char* str, int len, char c);
 %}
 
 /* This example illustrates a couple of different techniques
@@ -68,7 +69,7 @@ to_double_vector(PyObject *input, int *size)
         return NULL;
     }
 
-    *size = PyObject_Length(input);
+    *size = (int)PyObject_Length(input);
     double* ptr = (double*)malloc(*size);
     if (!ptr) {
         PyErr_SetString(PyExc_ValueError, "Cannot allocate data vector");
@@ -91,6 +92,14 @@ to_double_vector(PyObject *input, int *size)
 }
 %}
 
+%{
+void print_error_if()
+{
+    if (PyErr_Occurred())
+        PyErr_Print();
+}
+%}
+
 %typemap(in) double [ANY](double temp[$1_dim0]) {
    if (!convert_darray($input,temp,$1_dim0)) {
       return NULL;
@@ -109,6 +118,12 @@ to_double_vector(PyObject *input, int *size)
   $1 = tmp;
 }
 
+%typemap(in) (char* str, int len) {
+    $1 = PyString_AsString($input);   /* char *str */
+    $2 = (int)PyString_Size($input);       /* int len   */
+}
+
+int count_chars(char* str, int len, char c);
 int count_doubles(double *str, int len, double x);
 
 extern void foo(double x[10]);

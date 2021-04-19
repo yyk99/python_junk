@@ -58,3 +58,20 @@ int count_doubles(double* str, int len, double x)
 {
     return 0;
 }
+
+extern void print_error_if();
+
+int count_chars(char* str, int len, char c)
+{
+    print_error_if();
+
+    if (!str)
+        return -1; // ERROR
+    int cnt = 0;
+    while (*str)
+    {
+        if (*str++ == c)
+            ++cnt;
+    }
+    return cnt;
+}
