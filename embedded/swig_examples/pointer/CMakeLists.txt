@@ -16,6 +16,7 @@ swig_add_library(${_target}
 #	NO_PROXY
 	SOURCES
 		example.c
+		example.h
 		example.i
 )
 

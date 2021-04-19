@@ -18,6 +18,7 @@ int divide(int n, int d, int *r) {
 /* More examples */
 
 #include <stdio.h>
+#include "example.h"
 
 void foo(double x[10])
 {
@@ -74,4 +75,17 @@ int count_chars(char* str, int len, char c)
             ++cnt;
     }
     return cnt;
+}
+
+void make_point(double x, double y, Point* out)
+{
+    out->x = x;
+    out->y = y;
+}
+
+double perimeter(Point* d1, size_t s1)
+{
+    if(!d1)
+        return 9999.0;
+    return 0; // TODO:
 }

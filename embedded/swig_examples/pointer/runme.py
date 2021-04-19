@@ -56,6 +56,20 @@ example.parity("e\x09ffss\x00\x00\x01\nx", 0)
 print("example.summer(x) = %f" % example.summer(x))
 print("expected: %f" % sum(x))
 
-
 print("cnt: ", example.count_chars(b"1a2a3a", 'a'))
+
+p = example.Point()
+p.x = 10
+p.y = 20
+print("p: ", p)
+print ("p = (%d, %d)" % (p.x, p.y))
+
+print ("Testing make_point() function")
+p0 = example.make_point(0.5, 0.125)
+print ("p0=", p0)
+print ("p0=(%d,%d)" % (p0.x, p0.y))
+
+print("Testing perimeter (...) function:")
+points = [example.make_point(0,0), example.make_point(1,0), example.make_point(1,1), example.make_point(0,1) ]
+print(example.perimeter(points))
 # end of file

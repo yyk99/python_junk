@@ -7,6 +7,8 @@ extern void sub(int *, int *, int *);
 extern int divide(int, int, int *);
 extern int count_doubles(double *str, int len, double x);
 int count_chars(char* str, int len, char c);
+
+#include "example.h"
 %}
 
 /* This example illustrates a couple of different techniques
@@ -98,6 +100,12 @@ void print_error_if()
     if (PyErr_Occurred())
         PyErr_Print();
 }
+
+static Point*
+to_Point_vector(PyObject* input, int* size)
+{
+    return 0;
+}
 %}
 
 %typemap(in) double [ANY](double temp[$1_dim0]) {
@@ -133,3 +141,25 @@ double summer(double *data, int size);
 %apply (char *STRING, int LENGTH) { (char *data, int size) };
 // ...
 int parity(char *data, int size, int initial);
+
+
+%typemap(in) (Point* data, size_t size) {
+    Point* tmp = to_Point_vector($input, &$2);
+    if (!tmp)
+        return NULL;
+    $1 = tmp;
+}
+
+/* Set the input argument to point to a temporary variable */
+%typemap(in, numinputs = 0) Point *out(Point temp) {
+    $1 = &temp;
+}
+
+%typemap(argout) Point *out {
+    // Append output value $1 to $result
+    {
+        $result = SWIG_Python_AppendOutput($result, SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_Point, SWIG_POINTER_NEW | 0));
+    }
+}
+
+%include "example.h"
