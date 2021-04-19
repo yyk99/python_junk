@@ -58,18 +58,18 @@ public:
 
 TEST_F(SwigExampleModuleF, runme_py)
 {
-    {
-        int rc;
-        rc = PyRun_SimpleString("import sys");
-        ASSERT_EQ(rc, 0);
-        rc = PyRun_SimpleString("sys.path.append(\".\")");
-        ASSERT_EQ(rc, 0);
+    //{
+    //    int rc;
+    //    rc = PyRun_SimpleString("import sys");
+    //    ASSERT_EQ(rc, 0);
+    //    rc = PyRun_SimpleString("sys.path.append(\".\")");
+    //    ASSERT_EQ(rc, 0);
 
-        rc = PyRun_SimpleString("import " MODULE_NAME);
-        ASSERT_EQ(rc, 0);
-        rc = PyRun_SimpleString("print(dir(" MODULE_NAME "))");
-        ASSERT_EQ(rc, 0);
-    }
+    //    rc = PyRun_SimpleString("import " MODULE_NAME);
+    //    ASSERT_EQ(rc, 0);
+    //    rc = PyRun_SimpleString("print(dir(" MODULE_NAME "))");
+    //    ASSERT_EQ(rc, 0);
+    //}
 
     {
         FILE* fd = fopen("runme.py", "rb");

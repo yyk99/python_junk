@@ -83,9 +83,41 @@ void make_point(double x, double y, Point* out)
     out->y = y;
 }
 
-double perimeter(Point* d1, size_t s1)
+
+
+Point
+make_point2(    double x, double y)
+{
+    Point p;
+    p.x = x;
+    p.y = y;
+
+    return p;
+} // end of function make_point2
+
+#include <math.h>
+
+double metrics( Point const *p )
+{
+    return sqrt( p->x * p->x + p->y * p->y );
+}
+
+double perimeter(Point const *d1, size_t s1)
 {
     if(!d1)
         return 9999.0;
-    return 0; // TODO:
+    double p = 0;
+    for ( int i = 0; i != s1; ++i )
+    {
+        p += metrics( &d1[i] );
+    }
+
+    return p; // TODO:
 }
+
+void
+add_points(Point const *p1, Point const *p2, Point *out)
+{
+    out->x = p1->x + p2->x;
+    out->y = p1->x + p2->y;
+} // end of function add_points

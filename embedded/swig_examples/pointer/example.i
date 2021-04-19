@@ -72,7 +72,7 @@ to_double_vector(PyObject *input, int *size)
     }
 
     *size = (int)PyObject_Length(input);
-    double* ptr = (double*)malloc(*size);
+    double* ptr = (double*)malloc(*size * sizeof(double));
     if (!ptr) {
         PyErr_SetString(PyExc_ValueError, "Cannot allocate data vector");
         return NULL;
@@ -102,9 +102,34 @@ void print_error_if()
 }
 
 static Point*
-to_Point_vector(PyObject* input, int* size)
+to_Point_vector(PyObject *input, size_t *size)
 {
-    return 0;
+    if ( !PySequence_Check( input ) ) {
+        PyErr_SetString( PyExc_TypeError, "Expecting a sequence" );
+        return NULL;
+    }
+
+    *size = (int) PyObject_Length( input );
+    Point *ptr = (Point *) malloc( *size * sizeof(Point));
+    if ( !ptr ) {
+        PyErr_SetString( PyExc_ValueError, "Cannot allocate data vector" );
+        return NULL;
+    }
+
+    for ( int i = 0; i < *size; ++i )
+    {
+        PyObject *o = PySequence_GetItem( input, i );
+        //if ( o->) {
+        //    Py_XDECREF( o );
+        //    PyErr_SetString( PyExc_ValueError, "Expecting a sequence of floats" );
+        //    return NULL;
+        //}
+        ptr[i].x = 0.5;
+        ptr[i].y = 1.5;
+        Py_DECREF( o );
+    }
+
+    return ptr;
 }
 %}
 
@@ -143,23 +168,23 @@ double summer(double *data, int size);
 int parity(char *data, int size, int initial);
 
 
-%typemap(in) (Point* data, size_t size) {
-    Point* tmp = to_Point_vector($input, &$2);
-    if (!tmp)
-        return NULL;
-    $1 = tmp;
-}
-
 /* Set the input argument to point to a temporary variable */
-%typemap(in, numinputs = 0) Point *out(Point temp) {
-    $1 = &temp;
-}
+%typemap(in, numinputs = 0) Point *out %{
+    $1 = malloc(sizeof(Point));
+%}
 
 %typemap(argout) Point *out {
     // Append output value $1 to $result
     {
-        $result = SWIG_Python_AppendOutput($result, SWIG_NewPointerObj(SWIG_as_voidptr($1), SWIGTYPE_p_Point, SWIG_POINTER_NEW | 0));
+        %append_output(SWIG_NewPointerObj($1,$1_descriptor,1));
     }
+}
+
+%typemap(in) (Point const *d1, size_t s1) {
+    Point* tmp = to_Point_vector($input, & $2);
+    if (!tmp)
+        return NULL;
+    $1 = tmp;
 }
 
 %include "example.h"
