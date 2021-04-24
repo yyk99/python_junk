@@ -21,4 +21,17 @@ void halve_in_place(std::vector<double>& v) {
         *it /= 2.0;
 }
 
+typedef struct {
+    double x;
+    double y;
+} point_t;
+
+void add_in_place(point_t *u, point_t *v, size_t size)
+{
+    for (int i = 0; i != size; ++i)
+    {
+        u[i].x += v[i].x;
+        u[i].y += v[i].y;
+    }
+}
 
