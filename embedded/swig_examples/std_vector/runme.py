@@ -57,3 +57,24 @@ print(v[i] for i in range(5))
 example.add_in_place(v, u, 5)
 print(u[i] for i in range(5))
 print(list(v[i] for i in range(5)))
+
+# use PointVector
+print("*************** use PointVector *****************")
+
+v = example.PointVector(5);
+for i in range(5):
+    v[i] = example.point_t(i,i)
+u = example.PointVector(5);
+for i in range(5):
+    u[i] = example.point_t(i*10, i*10)
+
+print(u)
+print(v)
+
+example.add_in_place_vector(v, u)
+print(u)
+print(v)
+print(u[0], u[1])
+
+#import code
+#code.interact(local=locals())

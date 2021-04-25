@@ -26,6 +26,7 @@ typedef struct {
     double y;
 } point_t;
 
+
 void add_in_place(point_t *u, point_t *v, size_t size)
 {
     for (int i = 0; i != size; ++i)
@@ -33,5 +34,10 @@ void add_in_place(point_t *u, point_t *v, size_t size)
         u[i].x += v[i].x;
         u[i].y += v[i].y;
     }
+}
+
+void add_in_place_vector(std::vector<point_t>& u, std::vector<point_t>& v)
+{
+    add_in_place(u.data(), v.data(), u.size());
 }
 

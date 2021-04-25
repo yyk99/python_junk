@@ -17,8 +17,14 @@ namespace std {
 
 %extend point_t {
     char* __str__() {
-        static char tmp[1024];
+        static char tmp[80];
         sprintf(tmp, "point_t(%g, %g)", $self->x, $self->y);
+        return tmp;
+    }
+
+    char* __repr__() {
+        static char tmp[80];
+        sprintf(tmp, "example.point_t(%g, %g)", $self->x, $self->y);
         return tmp;
     }
 
@@ -30,6 +36,14 @@ namespace std {
     point_t(double x, double y) {
         point_t* pp = new point_t{x, y};
         return pp;
+    }
+}
+
+%extend std::vector<point_t> {
+    char* __str__() {
+        static char tmp[80];
+        sprintf(tmp, "std::vector<point_t>(...)");
+        return tmp;
     }
 }
 
