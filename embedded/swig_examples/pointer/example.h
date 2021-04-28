@@ -19,4 +19,7 @@ double perimeter(Point const * d1, size_t s1);
 
 void add_points( Point const *p1, Point const *p2, Point *out );
 
+// python will be using Point_array(...) type
+Point *generate_points( int *OUTPUT );
+
 #endif

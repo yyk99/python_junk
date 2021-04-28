@@ -85,9 +85,25 @@ def part3():
 	res = example.add_points(p0, p2)
 	print ("res = (%g, %g)" % (res.x, res.y))
 
+def part4():
+	print ("---------------- part4: ---------------- ")
+	print ("example.generate_points.__doc__: ", example.generate_points.__doc__)
+	point_arr, point_arr_size = example.generate_points();
+	print(point_arr)
+	print(point_arr_size)
+
+	# IMPORTANT: construct Point_array object from the returned pointer
+	the_array = example.Point_array_frompointer(point_arr)
+
+	for i in range(point_arr_size):
+		print (i, the_array[i].x, the_array[i].y)
+
+	return
+
 part1()
 part20()
 part21()
 part3()
+part4()
 
 # end of file

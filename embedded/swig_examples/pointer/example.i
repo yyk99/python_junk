@@ -1,6 +1,8 @@
 /* File : example.i */
 %module example
 
+%feature( "autodoc", "1" );
+
 %{
 extern void add(int *, int *, int *);
 extern void sub(int *, int *, int *);
@@ -36,6 +38,10 @@ void foo(double x[10]);
 void bar(double a[4], double b[8]);
 double summer(double *data, int size);
 int parity(char *data, int size, int initial);
+
+void get_key( int key, char *BUFFER );
+
+char *gen_key();
 %}
 
 
@@ -186,5 +192,32 @@ int parity(char *data, int size, int initial);
         return NULL;
     $1 = tmp;
 }
+
+
+// Another case of Point *
+%include carrays.i
+%array_class( Point, Point_array );
+
+// char *BUFFER32
+%typemap( in, numinputs = 0 ) char *BUFFER32 () %{
+    $1 = (char *) malloc( 32 );
+%}
+
+%typemap( argout ) char *BUFFER32 {
+    PyObject *tmp = $result;
+    long len = 0;
+    int res = SWIG_AsVal_long( tmp, &len );
+    if ( !SWIG_IsOK( res ) ) {
+        free( $1 );
+        SWIG_fail;
+    }
+    $result = SWIG_From_CharPtrAndSize( $1, len );
+    Py_DECREF( tmp ); //probably?
+    free( $1 );
+}
+
+void get_key( int key, char *BUFFER );
+
+char *gen_key();
 
 %include "example.h"

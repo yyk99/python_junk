@@ -1,5 +1,9 @@
 /* File : example.c */
 
+#if _WIN32
+#   define _CRT_SECURE_NO_WARNINGS
+#endif
+
 void add(int *x, int *y, int *result) {
   *result = *x + *y;
 }
@@ -121,3 +125,26 @@ add_points(Point const *p1, Point const *p2, Point *out)
     out->x = p1->x + p2->x;
     out->y = p1->x + p2->y;
 } // end of function add_points
+
+Point *
+generate_points( int *outSize )
+{
+    static Point points[] = { {0,1}, {2,3}, {4,5} };
+
+    *outSize = (int) (sizeof points / sizeof * points);
+
+    return points;
+}
+
+#include <string.h>
+
+void get_key( int key, char *BUFFER32 )
+{
+    (void) key;
+    strcpy( BUFFER32, "Hello..." );
+}
+
+char *gen_key()
+{
+    return "hello...";
+}
