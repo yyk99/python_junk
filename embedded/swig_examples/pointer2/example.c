@@ -51,3 +51,16 @@ layer_info_t const* GetLayerInfo(layer_handle_t h)
     return pos;
 }
 
+const char *RunInfoQuery(layer_info_query_t const* query)
+{
+    if (query == NULL)
+        return NULL;
+
+    static char buffer[1024];
+    buffer[0] = 0;
+
+    sprintf(buffer, "Flags: 0x%08x, Total: %ld items", query->m_flags, (long)query->m_list_size);
+
+    return buffer;
+}
+
