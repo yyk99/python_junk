@@ -29,7 +29,7 @@ layer_info_t const *GetLayerInfo(layer_handle_t h);
 
 typedef struct {
     uint32_t m_flags; // The flag field
-    entity_handle_t* m_list;
+    layer_handle_t *m_list;
     size_t m_list_size;
 } layer_info_query_t ;
 
