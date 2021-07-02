@@ -10,6 +10,7 @@
 //
 
 #include <stdint.h>
+#include <stdlib.h> /* size_t */
 
 typedef void *layer_handle_t;
 typedef void *entity_handle_t;

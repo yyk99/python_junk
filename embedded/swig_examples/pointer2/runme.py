@@ -14,7 +14,7 @@ arr[0] = 42
 print(20, arr[0])
 print(30, type(arr[0]))
 
-q_info.m_list = arr
+q_info.m_list = arr.cast()
 q_info.m_list_size = 1
 
 res = example.RunInfoQuery(q_info)
