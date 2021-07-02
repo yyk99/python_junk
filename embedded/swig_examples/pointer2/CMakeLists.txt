@@ -4,7 +4,7 @@
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-set_property(SOURCE example.i PROPERTY C ON)
+set_property(SOURCE example.i PROPERTY CPLUSPLUS ON)
 set_property(SOURCE example.i PROPERTY SWIG_MODULE_NAME example)
 
 set (_target pointer2)
@@ -15,7 +15,7 @@ swig_add_library(${_target}
 	LANGUAGE python
 #	NO_PROXY
 	SOURCES
-		example.c
+		example.cpp
 		example.h
 		example.i
 )
