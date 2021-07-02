@@ -33,5 +33,24 @@
 
 %include carrays.i
 %array_class(layer_handle_t, layer_handle_array);
+%array_class(point_t, point_array);
+
+%extend point_t{
+    point_t(double x, double y)
+    {
+        point_t *obj = (point_t*)calloc(1, sizeof(point_t));
+        obj->x = x;
+        obj->y = y;
+
+        return obj;
+    }
+
+    point_t()
+    {
+        point_t *obj = (point_t*)calloc(1, sizeof(point_t));
+
+        return obj;
+    }
+};
 
 %include "example.h"

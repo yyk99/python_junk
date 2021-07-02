@@ -19,6 +19,10 @@ typedef struct {
     char* description;
 } layer_info_t;
 
+typedef struct {
+    double x;
+    double y;
+} point_t;
 
 // returns NULL if error
 // listSize == 0 if list is empty
@@ -32,6 +36,9 @@ typedef struct {
     uint32_t m_flags; // The flag field
     layer_handle_t *m_list;
     size_t m_list_size;
+
+    point_t *m_point_list;
+    size_t m_point_list_size;
 } layer_info_query_t ;
 
 const char* RunInfoQuery(layer_info_query_t const* query);

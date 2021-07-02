@@ -61,6 +61,11 @@ const char *RunInfoQuery(layer_info_query_t const* query)
 
     sprintf(buffer, "Flags: 0x%08x, Total: %ld items", query->m_flags, (long)query->m_list_size);
 
+    for (int i = 0; i != query->m_point_list_size; ++i)
+    {
+        printf("%i -> (%f, %f)\n", i, query->m_point_list[i].x, query->m_point_list[i].y);
+    }
+
     return buffer;
 }
 
