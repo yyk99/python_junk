@@ -28,3 +28,21 @@ q_info.m_point_list_size = 2
 res = example.RunInfoQuery(q_info)
 assert type(res) is str
 print (40, res)
+
+def print_message(s):
+	print("Message:", s)
+
+example.SetMessageCallback(print_message)
+
+example.DisplayMessage("Message #1")
+example.DisplayMessage("Message #2")
+
+try:
+	example.SetMessageCallback(0x123)
+	assert False, "exception is expected"
+except TypeError as e:
+	print(50, e)
+	print(51, type(e))
+
+example.DisplayMessage("Message #3")
+example.DisplayMessage("Message #4")

@@ -53,4 +53,37 @@
     }
 };
 
+%{
+static PyObject* s_messageCB_t_functionCB;
+void messageCB(const char* msg)
+{
+    if (s_messageCB_t_functionCB)
+    {
+        auto pArgs = PyTuple_New(1);
+        auto pValue = PyString_FromString(msg);
+        PyTuple_SetItem(pArgs, 0, pValue); /* pValue reference stolen here: */
+        pValue = PyObject_CallObject(s_messageCB_t_functionCB, pArgs);
+        Py_DECREF(pArgs);
+        if (pValue == NULL) {
+            Py_DECREF(s_messageCB_t_functionCB);
+            s_messageCB_t_functionCB = NULL;
+            PyErr_Print();
+            fprintf(stderr, "Call failed\n");
+        }
+    }
+}
+%}
+
+%typemap(in) messageCB_t functionCB {
+    /* convert to callback object */
+    if ($input && PyCallable_Check($input)) {
+        s_messageCB_t_functionCB = $input;
+        $1 = messageCB;
+    }
+    else {
+        SWIG_Error(0x42, "Argument is not callable");
+        return NULL;
+    }
+}
+
 %include "example.h"
