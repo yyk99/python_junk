@@ -28,3 +28,16 @@ q_info.m_point_list_size = 2
 res = example.RunInfoQuery(q_info)
 assert type(res) is str
 print (40, res)
+
+def print_message(s):
+	print("Message:", s)
+
+example.SetMessageCallback(print_message)
+
+example.DisplayMessage("Message #1")
+example.DisplayMessage("Message #2")
+
+example.SetMessageCallback(0x123)
+
+example.DisplayMessage("Message #3")
+example.DisplayMessage("Message #4")

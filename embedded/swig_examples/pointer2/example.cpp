@@ -69,3 +69,16 @@ const char *RunInfoQuery(layer_info_query_t const* query)
     return buffer;
 }
 
+static messageCB_t current_messager = 0;
+
+void SetMessageCallback(messageCB_t functionCB)
+{
+    current_messager = functionCB;
+}
+
+void DisplayMessage(const char* txt)
+{
+    if (current_messager)
+        (*current_messager)(txt);
+}
+

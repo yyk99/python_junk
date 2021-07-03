@@ -53,4 +53,27 @@
     }
 };
 
+%{
+static PyObject* s_messageCB_t_functionCB;
+void messageCB(const char* msg)
+{
+    if (s_messageCB_t_functionCB)
+    {
+
+    }
+}
+%}
+
+%typemap(in) messageCB_t functionCB {
+    /* convert to callback object */
+    if ($input && PyCallable_Check($input)) {
+        s_messageCB_t_functionCB = $input;
+        $1 = messageCB;
+    }
+    else {
+        SWIG_Error(0x42, "Argument is not callable");
+        return NULL;
+    }
+}
+
 %include "example.h"

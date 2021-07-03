@@ -42,4 +42,10 @@ typedef struct {
 } layer_info_query_t ;
 
 const char* RunInfoQuery(layer_info_query_t const* query);
+
+typedef void (*messageCB_t)(const char*);
+
+void SetMessageCallback(messageCB_t functionCB);
+
+void DisplayMessage(const char* txt);
 #endif
