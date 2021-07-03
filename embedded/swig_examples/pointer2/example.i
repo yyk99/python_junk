@@ -81,7 +81,7 @@ void messageCB(const char* msg)
         $1 = messageCB;
     }
     else {
-        SWIG_Error(0x42, "Argument is not callable");
+        SWIG_Error(SWIG_TypeError, "Argument is not callable");
         return NULL;
     }
 }
