@@ -2,10 +2,16 @@
 #
 #
 
-import gm
+color = (0, 0, 0)
 
-SetColor = gm.SetColor
-GetColor = gm.GetColor
+def SetColor (aColor):
+	global color
+	assert type(aColor) is tuple
+	assert len(aColor) == 3
+	color = aColor
 
-if __name__ == '__main__':
-	print ('import me')
+def GetColor ():
+	return color
+
+if __name__ == "__main__":
+	print ("import me")
