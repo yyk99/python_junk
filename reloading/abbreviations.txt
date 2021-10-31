@@ -1,0 +1,302 @@
+Abbreviations
+Description
+A MAX
+Hornady Match
+A-BOND
+AccuBond
+A-BOND LR
+AccuBond Long Range
+A-MAX
+Hornady Match
+AB
+AccuBond
+BALLISTIC TIP
+Balistic Tip
+BK
+BlitzKing
+BONDED
+Bonded Performance
+BR
+Bench Rest
+BT
+Boat Tail
+BT
+Boat Tail or Nosler Balistic Tip
+BTHP
+Boat Tail Hollow Point
+BTSP
+Boat Tail Spire Point
+CPFN
+Copper Plated Flat Nose
+CPRN
+Copper Plated Round Nose
+CUSTOM COMP
+Custom Competition
+DGS
+Dangerous Game Solid
+DGX
+Dangerous Game eXpanding
+DGX Bonded
+Dangerous Game eXpanding Bonded
+E-Tip
+E-Tip (Lead-Free)
+ELD Match
+Extremely Low Drag Match
+ELD-X
+Extremely Low Drag - eXpanding
+ER Raptor
+Extended Range Raptor
+FB Raptor
+Flat Base Raptor
+FMC
+Full Metal Case
+FMJ
+Full Metal Jacket
+FMJBT
+Full Metal Jacket Boat Tail
+FN
+Flat Nose
+FNHP
+Flat Nose Hollow Point
+FNSP
+Flat Nose Soft Point
+FP
+Flat Point
+FPJ
+Full Plated Jacket
+FS
+Fail Safe
+FTX
+Flex Tip
+FTX
+Flexi Tip
+FTX ME
+Flex Tip for Marlin Express
+GC
+Gas Check
+GDHP
+Gold Dot Hollow Point
+GDSP
+Gold Dot Soft Point
+GK
+GameKing
+GRAND SLAM
+Grand Slam Rifle Bullet
+GS
+Grand Slam Rifle Bullet
+GS
+Grand Slam Soft Point
+HAP
+Hornady Action Pistol
+HB
+Hollow Base
+HBWC
+Hollow Base Wadcutter
+HC
+Hollow Cavity
+HG Raptor
+Handgun Raptor
+HG Solid
+Handgun Solid
+HP
+Hollow Point
+HPBT
+Hollow Point Boat Tail
+HSP
+Hollow Soft Point
+HYBRID
+Classic Hybrid Hunter
+HYBRID OTM
+OTM Tactical
+IB
+InterBond
+JFP
+Jacketed Flat Point
+JHC
+Jacketed Hollow Cavity
+JHP
+Jacketed Hollow Point
+JRN
+Jacketed Round Nose
+JSP
+Jacketed Soft Point
+JSPBT
+Jacketed Soft Point Boat-Tail
+JSWC
+Jacketed Semi-Wadcutter
+Lazer
+Lazer-Tipped Hollow Point
+LBBWC
+Lead Bevel Base Wadcutter
+LCN
+Lead Conical Nose
+LFN
+Lead Flat Nose
+LFNPB
+Lead Flat Nose Plain Base
+LFP
+Lead Flat Point
+LHBWC
+Lead Hollow Base Wadcutter
+LRN
+Lead Round Nose
+LRX
+LRX RIFLE BULLET
+LSW
+Lead Semi-Wadcutter
+LSWC
+Lead Semi-Wadcutter
+LSWHP
+Lead Semi-Wadcutter Hollow Point
+LWC
+Lead Wadcutter
+MATCH KING
+MatchKing
+MC
+Metal Case
+MK
+MatchKing
+MPG
+MULTI-PURPOSE GREEN MPG™
+MRX
+Maximum Range X Bullet
+MT-SP
+Mag Tip Soft Point
+MT-SP
+Magnum Tip Soft Point
+MTAC
+Match/Tactical
+MTH
+MTH (Match/Tactical/Hunting)
+MZL Raptor
+Muzzle Loader Raptor
+ORIGINALS
+BARNES ORIGINALS
+PART
+Partition
+PART
+Partition Hunting
+PH
+Pro-Hunter
+PHD Ammo
+Personal Home Defense Ammo
+PSPCL
+Pointed Soft Point "Core Lokt"
+RDF
+RDF ( Reduced Drag Factor )
+RN
+Round Nose
+SB
+Solid Base
+SBT
+Spitzer Boat Tail
+SCIR
+Scirocco
+SDG
+Solid Dangerous Game
+SJ
+Short Jacket Performance
+SM
+Sports Master
+SMP
+Semi-Pointed
+SP
+Soft Point
+SP
+Spire Point, Soft Point
+SPBT
+Soft Point Boat Tail
+SPFN
+Soft Point Flat Nose
+SPRN
+Soft Point Round Nose
+SPT
+Spitzer
+SSP
+Single Shot Pistol
+SSP
+Spitzer Soft Point
+SSSP
+Semi-Spitzer Soft Point
+SST
+Super Shock Tip
+ST
+Ballistic Silvertip
+ST
+Silver Tip
+Sub-X
+Subsonic — eXpanding
+SX
+Super Explosive
+TAC-LR
+M/LE TAC-LR™ BULLETS
+TAC-RRLP
+M/LE RRLP­™ BULLETS
+TAC-TX
+M/LE TAC-TX
+TAC-X
+M/LE TAC-X BULLETS
+TAC-XP
+M/LE TAC XP PISTOL BULLETS
+TJM RN
+Total Metal Jacket Round Nose
+TM
+Tournament Master
+TMJ
+Total Metal Jacket
+TMJ FN
+Total Metal Jacket Flat Nose
+TMJ RN
+Total Metal Jacket Round Nose
+TMK
+Tipped MatchKing
+TNT
+TNT Bullet
+TNT
+TNT Jacketed Hollow Point
+TNT
+Varmint Bullet
+TNT GREEN
+TNT Green Bullet
+TSX
+100% COPPER TSX
+TSX
+Triple Shock X Bullet
+TTSX
+Tipped Triple Shock X Bullet
+TTSX
+TIPPED TSX RIFLE BULLETS
+V MAX
+Varmint Express
+V-MAX
+Varmint Express
+VARMIN-A-TOR
+VARMINATOR HOLLOW POINT
+VG
+Varmint Grenade
+VLD
+Very Low Drag
+W/GC
+With Gas Check
+WC
+Wadcutter
+X
+X Bullet
+XBT
+X Boat Tail
+XBTC
+X Boat Tail Coated
+XFB
+X Flat Base Bullet
+XLC
+X Coated Bullet
+XPB
+X Pistol Bullet
+XPB
+XPB PISTOL BULLET
+XTP
+Extreme Terminal
+XTP
+eXtreme Terminal Performance
+XTP Mag
+eXtreme Terminal Performance — Magnum

@@ -1,0 +1,151 @@
+,Abbreviations,Description
+1,A MAX,Hornady Match
+2,A-BOND,AccuBond
+3,A-BOND LR,AccuBond Long Range
+4,A-MAX,Hornady Match
+5,AB,AccuBond
+6,BALLISTIC TIP,Balistic Tip
+7,BK,BlitzKing
+8,BONDED,Bonded Performance
+9,BR,Bench Rest
+10,BT,Boat Tail
+11,BT,Boat Tail or Nosler Balistic Tip
+12,BTHP,Boat Tail Hollow Point
+13,BTSP,Boat Tail Spire Point
+14,CPFN,Copper Plated Flat Nose
+15,CPRN,Copper Plated Round Nose
+16,CUSTOM COMP,Custom Competition
+17,DGS,Dangerous Game Solid
+18,DGX,Dangerous Game eXpanding
+19,DGX Bonded,Dangerous Game eXpanding Bonded
+20,E-Tip,E-Tip (Lead-Free)
+21,ELD Match,Extremely Low Drag Match
+22,ELD-X,Extremely Low Drag - eXpanding
+23,ER Raptor,Extended Range Raptor
+24,FB Raptor,Flat Base Raptor
+25,FMC,Full Metal Case
+26,FMJ,Full Metal Jacket
+27,FMJBT,Full Metal Jacket Boat Tail
+28,FN,Flat Nose
+29,FNHP,Flat Nose Hollow Point
+30,FNSP,Flat Nose Soft Point
+31,FP,Flat Point
+32,FPJ,Full Plated Jacket
+33,FS,Fail Safe
+34,FTX,Flex Tip
+35,FTX,Flexi Tip
+36,FTX ME,Flex Tip for Marlin Express
+37,GC,Gas Check
+38,GDHP,Gold Dot Hollow Point
+39,GDSP,Gold Dot Soft Point
+40,GK,GameKing
+41,GRAND SLAM,Grand Slam Rifle Bullet
+42,GS,Grand Slam Rifle Bullet
+43,GS,Grand Slam Soft Point
+44,HAP,Hornady Action Pistol
+45,HB,Hollow Base
+46,HBWC,Hollow Base Wadcutter
+47,HC,Hollow Cavity
+48,HG Raptor,Handgun Raptor
+49,HG Solid,Handgun Solid
+50,HP,Hollow Point
+51,HPBT,Hollow Point Boat Tail
+52,HSP,Hollow Soft Point
+53,HYBRID,Classic Hybrid Hunter
+54,HYBRID OTM,OTM Tactical
+55,IB,InterBond
+56,JFP,Jacketed Flat Point
+57,JHC,Jacketed Hollow Cavity
+58,JHP,Jacketed Hollow Point
+59,JRN,Jacketed Round Nose
+60,JSP,Jacketed Soft Point
+61,JSPBT,Jacketed Soft Point Boat-Tail
+62,JSWC,Jacketed Semi-Wadcutter
+63,Lazer,Lazer-Tipped Hollow Point
+64,LBBWC,Lead Bevel Base Wadcutter
+65,LCN,Lead Conical Nose
+66,LFN,Lead Flat Nose
+67,LFNPB,Lead Flat Nose Plain Base
+68,LFP,Lead Flat Point
+69,LHBWC,Lead Hollow Base Wadcutter
+70,LRN,Lead Round Nose
+71,LRX,LRX RIFLE BULLET
+72,LSW,Lead Semi-Wadcutter
+73,LSWC,Lead Semi-Wadcutter
+74,LSWHP,Lead Semi-Wadcutter Hollow Point
+75,LWC,Lead Wadcutter
+76,MATCH KING,MatchKing
+77,MC,Metal Case
+78,MK,MatchKing
+79,MPG,MULTI-PURPOSE GREEN MPG™
+80,MRX,Maximum Range X Bullet
+81,MT-SP,Mag Tip Soft Point
+82,MT-SP,Magnum Tip Soft Point
+83,MTAC,Match/Tactical
+84,MTH,MTH (Match/Tactical/Hunting)
+85,MZL Raptor,Muzzle Loader Raptor
+86,ORIGINALS,BARNES ORIGINALS
+87,PART,Partition
+88,PART,Partition Hunting
+89,PH,Pro-Hunter
+90,PHD Ammo,Personal Home Defense Ammo
+91,PSPCL,"Pointed Soft Point ""Core Lokt"""
+92,RDF,RDF ( Reduced Drag Factor )
+93,RN,Round Nose
+94,SB,Solid Base
+95,SBT,Spitzer Boat Tail
+96,SCIR,Scirocco
+97,SDG,Solid Dangerous Game
+98,SJ,Short Jacket Performance
+99,SM,Sports Master
+100,SMP,Semi-Pointed
+101,SP,Soft Point
+102,SP,"Spire Point, Soft Point"
+103,SPBT,Soft Point Boat Tail
+104,SPFN,Soft Point Flat Nose
+105,SPRN,Soft Point Round Nose
+106,SPT,Spitzer
+107,SSP,Single Shot Pistol
+108,SSP,Spitzer Soft Point
+109,SSSP,Semi-Spitzer Soft Point
+110,SST,Super Shock Tip
+111,ST,Ballistic Silvertip
+112,ST,Silver Tip
+113,Sub-X,Subsonic — eXpanding
+114,SX,Super Explosive
+115,TAC-LR,M/LE TAC-LR™ BULLETS
+116,TAC-RRLP,M/LE RRLP­™ BULLETS
+117,TAC-TX,M/LE TAC-TX
+118,TAC-X,M/LE TAC-X BULLETS
+119,TAC-XP,M/LE TAC XP PISTOL BULLETS
+120,TJM RN,Total Metal Jacket Round Nose
+121,TM,Tournament Master
+122,TMJ,Total Metal Jacket
+123,TMJ FN,Total Metal Jacket Flat Nose
+124,TMJ RN,Total Metal Jacket Round Nose
+125,TMK,Tipped MatchKing
+126,TNT,TNT Bullet
+127,TNT,TNT Jacketed Hollow Point
+128,TNT,Varmint Bullet
+129,TNT GREEN,TNT Green Bullet
+130,TSX,100% COPPER TSX
+131,TSX,Triple Shock X Bullet
+132,TTSX,Tipped Triple Shock X Bullet
+133,TTSX,TIPPED TSX RIFLE BULLETS
+134,V MAX,Varmint Express
+135,V-MAX,Varmint Express
+136,VARMIN-A-TOR,VARMINATOR HOLLOW POINT
+137,VG,Varmint Grenade
+138,VLD,Very Low Drag
+139,W/GC,With Gas Check
+140,WC,Wadcutter
+141,X,X Bullet
+142,XBT,X Boat Tail
+143,XBTC,X Boat Tail Coated
+144,XFB,X Flat Base Bullet
+145,XLC,X Coated Bullet
+146,XPB,X Pistol Bullet
+147,XPB,XPB PISTOL BULLET
+148,XTP,Extreme Terminal
+149,XTP,eXtreme Terminal Performance
+150,XTP Mag,eXtreme Terminal Performance — Magnum
