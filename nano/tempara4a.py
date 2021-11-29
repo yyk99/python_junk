@@ -25,3 +25,8 @@ print('ok', ok)
 data = sock.recv(1024)
 print('data', data, len(data))
 print(struct.unpack('LlllLLL', data))
+
+CLOSE_MESSAGE = b"CLOSE\r\n"
+sock.sendto(CLOSE_MESSAGE, (UDP_IP, UDP_PORT))
+
+
