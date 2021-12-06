@@ -4,29 +4,48 @@
 
 import struct
 import socket
+import select
 
-UDP_IP = "192.168.1.136"
-UDP_PORT = 2390
-MESSAGE = b"CONNECT\r\n"
+verbose = False
 
-print("UDP target IP: %s" % UDP_IP)
-print("UDP target port: %s" % UDP_PORT)
-print("message: %s" % MESSAGE)
+def print_temperature():
+    print (get_record())
 
-sock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
-ok = sock.connect((UDP_IP, UDP_PORT))
-print('ok', ok)
+def get_record():
+    record = None
+    UDP_IP = "192.168.1.136"
+    UDP_PORT = 2390
+    MESSAGE = b"CONNECT\r\n"
 
-sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+    if verbose:
+        print("UDP target IP: %s" % UDP_IP)
+        print("UDP target port: %s" % UDP_PORT)
+        print("message: %s" % MESSAGE)
 
-ok = sock.recv(1024)
-print('ok', ok)
-data = sock.recv(1024)
-print('data', data, len(data))
-print(struct.unpack('LlllLLL', data))
+    sock = socket.socket(socket.AF_INET, # Internet
+                         socket.SOCK_DGRAM) # UDP
+    sock.connect((UDP_IP, UDP_PORT))
+    sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+    sock.setblocking(0)
+    ready = select.select([sock], [], [], 10) # 10 seconds timeout
+    if ready[0]:
+        ok = sock.recv(1024)
+        if verbose:
+            print('ready:', ok)
+        ready = select.select([sock], [], [], 10) # 10 seconds timeout
+        if ready[0]:
+            data = sock.recv(1024)
+            if verbose:
+                print('data', data, len(data))
+            record = struct.unpack('LlllLLL', data)
+        else: # it is timeout
+            print("Timeout...")
+    else:
+        print("Timeout...")
+    CLOSE_MESSAGE = b"CLOSE\r\n"
+    sock.sendto(CLOSE_MESSAGE, (UDP_IP, UDP_PORT))
+    sock.close()
+    return record
 
-CLOSE_MESSAGE = b"CLOSE\r\n"
-sock.sendto(CLOSE_MESSAGE, (UDP_IP, UDP_PORT))
-
-
+if __name__ == "__main__":
+    print_temperature()
