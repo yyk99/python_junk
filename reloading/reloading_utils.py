@@ -17,5 +17,9 @@ def get_url(s):
         return base_url % 847084052
     if s =='data/reloading_data - 38 special +P.csv':
         return base_url % 2054435826
+    if s == 'data/reloading_data - 7.62x39 russian.csv':
+        return base_url % 483618626
+    if s == 'data/reloading_data - 7.62x54 russian.csv':
+        return base_url % 1053150830
     
     raise Exception("Unknown filename: " + s)
