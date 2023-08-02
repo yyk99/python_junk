@@ -1,1 +1,1 @@
-py -m jupyter notebook
+py -3.9 -m jupyter notebook
